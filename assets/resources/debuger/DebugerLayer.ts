@@ -56,7 +56,7 @@ export default class DebugerLayer extends cc.Component {
 
     initNative()
     {
-        Native.cooperate(JSON.stringify(ECGameController.instance.properties.config.json));
+        Native.cooperate(JSON.stringify(ECGameController.instance.properties.naitve.json));
     }
 
     review()

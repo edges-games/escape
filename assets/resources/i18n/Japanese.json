@@ -64,6 +64,7 @@
     "LK_ITEM_FLASHLIGHT2_DESC":"辺りを照らすことができる",
     "LK_RN_SAMPLE":"サンプルルーム",
     "LK_TEXTEVENT_COLOR_SAMPLE":"これは<color=ff0000>ECTextEvent</color>の<color=00ff00>Rich</color>サンプルです。",
+    "LK_TEXTEVENT_TYPE_COLOR_SAMPLE":"@#0l$$名前付き一字づつ出る<color=ff0000>ECTextEvent</color>の<color=00ff00>Rich</color>サンプルです。",
     "LK_TEXTEVENT_SAMPLE":"ECTextEventサンプル"
     
 }

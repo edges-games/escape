@@ -77,9 +77,9 @@ export default class ECGameController extends cc.Component
             keys.push(flag);
         }
 
-        for(let i = 0; i < this.properties.saveKeys.length; i++)
+        for(let i = 0; i < this.properties.dictionary.save_keys.length; i++)
         {
-            keys.push(this.properties.saveKeys[i]);
+            keys.push(this.properties.dictionary.save_keys[i]);
         }
 
         ECLocalStorage.registSaveKeys(keys);
@@ -190,7 +190,7 @@ export default class ECGameController extends cc.Component
     {
         for(let i=0;i<this.items.length;i++)
         {
-            if(this.items[i] == this.properties.itemFlashLight)
+            if(this.items[i] == this.properties.dictionary.item_flashlight)
             {
                 return true;
             }
@@ -202,7 +202,7 @@ export default class ECGameController extends cc.Component
     {
         for(let i=0;i<this.items.length;i++)
         {
-            if(this.items[i] == this.properties.itemFlashLight2)
+            if(this.items[i] == this.properties.dictionary.item_flashlight2)
             {
                 return true;
             }
@@ -215,7 +215,7 @@ export default class ECGameController extends cc.Component
         this.coin += parseInt(coin as any);
         cc.systemEvent.emit(ECEvents.UpdateCoin, this.coin);
         ECLocalStorage.setItem(ECSaveKeys.Coin,this.coin,true);
-        ECGameController.instance.audio.playSoundAsync(this.properties.updateCoinSound);
+        ECGameController.instance.audio.playSoundAsync(this.properties.dictionary.se_update_coin);
     }
 
     public useCoin(coin:number)
@@ -223,7 +223,7 @@ export default class ECGameController extends cc.Component
         this.coin -= parseInt(coin as any);
         cc.systemEvent.emit(ECEvents.UpdateCoin, this.coin);
         ECLocalStorage.setItem(ECSaveKeys.Coin,this.coin,true);
-        ECGameController.instance.audio.playSoundAsync(this.properties.updateCoinSound);
+        ECGameController.instance.audio.playSoundAsync(this.properties.dictionary.se_update_coin);
     }
 
     changeScene(scene:string,quick:boolean = false,onChanging=null,canBack=false)

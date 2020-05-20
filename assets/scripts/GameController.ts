@@ -18,7 +18,7 @@ export default class GameController extends ECGameController
                 ECGameController.instance.getCoin(parseInt(sku.replace("coin","")));
             }
         }
-        Native.cooperate(JSON.stringify(this.properties.config.json));
+        Native.cooperate(JSON.stringify(this.properties.naitve.json));
         super.onLoad();
         this.uigroup.onInitialize();
         this.uigroup.showStandup();

@@ -26,8 +26,8 @@ export default class AttentionLayer extends ECBaseLayer {
                 .to(1,{opacity:255})
                 .call(()=>
                 {
-                    this.node.active = false;
-                    ECUIGroup.instance.Standup.node.active = true;
+                    this.node.destroy();
+                    ECUIGroup.instance.showStandup();
                 }).to(1,{opacity:0})
                 .call(()=>{ECGameController.instance.mask.active=false;})
                 .start();

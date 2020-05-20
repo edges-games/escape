@@ -90,11 +90,6 @@ export default class ECStandupLayer extends ECBaseLayer
         Native.goReview(ECLocalization.format(ECStrings.LK_REVIEW_DIALOG_TITLE),ECLocalization.format(ECStrings.LK_REVIEW_DIALOG_CONTENT));
     }
 
-    public likeNative()
-    {
-        Native.cooperate(JSON.stringify(ECGameController.instance.properties.config.json));
-    }
-
     public showSetting()
     {
         ECUIGroup.instance.showSetting();

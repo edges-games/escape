@@ -1,3 +1,5 @@
+import ECGameController from "./ECGameController";
+
 const {ccclass} = cc._decorator;
 
 @ccclass
@@ -5,6 +7,11 @@ export default class ECUtils {
 
     static stopTween(tween:any) {
         (tween&& tween._finalAction.target) && tween.stop();
+    }
+
+    public static getProperty(key:string):any
+    {
+        return ECGameController.instance.properties.dictionary[key];
     }
 
     public static touchEvents(children:any[], point, process:any = null):any

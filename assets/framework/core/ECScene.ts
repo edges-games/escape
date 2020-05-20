@@ -48,7 +48,8 @@ export default class ECScene extends cc.Component
         }
         if(this.tolerance == null)
         {
-            this.tolerance = ECGameController.instance.properties.tolerance;
+            let t:number[] = ECGameController.instance.properties.dictionary.tolerance;
+            this.tolerance = cc.rect(t[0], t[1], t[2], t[3]);
         }
 
         this.halfBackgroundSize = cc.size(this.backgroundLayer.getContentSize().width/2, this.backgroundLayer.getContentSize().height/2);
@@ -237,7 +238,7 @@ export default class ECScene extends cc.Component
         {
             if(!ECUtils.touchEvents(this.lightEvents,touch.getLocation()))
             {
-                cc.systemEvent.emit(ECEvents.ShowText, ECGameController.instance.properties.textWhenLightOff);
+                cc.systemEvent.emit(ECEvents.ShowText, ECGameController.instance.properties.dictionary.light_off_text);
             }
         }
         else

@@ -1,0 +1,12 @@
+{
+	"item_flashlight": "item_flashlight",
+	"item_flashlight2": "item_flashlight2",
+	"start_scene": "sample",
+	"light_off_text": "LK_COMMON_01",
+	"se_update_coin": "audios/se/se_get_money",
+	"se_btn": "audios/se/se_btn",
+	"se_get_coin": "audios/se/se_get_coin",
+	"se_get_item": "audios/se/se_get_item",
+	"tolerance": [0,0,0,80],
+	"save_keys":[]
+}

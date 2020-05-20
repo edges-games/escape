@@ -2227,25 +2227,15 @@
       "__id__": 2
     },
     "_enabled": true,
-    "config": {
+    "naitve": {
       "__uuid__": "c428f593-cb70-4289-840b-6186c5873db5"
     },
-    "tolerance": {
-      "__type__": "cc.Rect",
-      "x": 0,
-      "y": 0,
-      "width": 0,
-      "height": 0
+    "game": {
+      "__uuid__": "6822ff05-c273-4b58-9bcd-7a2e3d00a748"
     },
-    "itemFlashLight": "item_flashlight",
-    "itemFlashLight2": "item_flashlight2",
-    "textWhenLightOff": "LK_COMMON_01",
-    "updateCoinSound": "audios/se/se_getmoney",
-    "saveKeys": [],
     "retains": {
       "__uuid__": "01e2c1e7-4093-47c5-a73c-d131601b1228"
     },
-    "startScene": "sample",
     "_id": "1eWDGT/alNj5z0Ecf1gffj"
   },
   {

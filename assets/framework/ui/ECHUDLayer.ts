@@ -4,6 +4,7 @@ import ECGameController from "../core/ECGameController";
 import ECUIGroup from "./ECUIGroup";
 import Native from "../native/ECNative";
 import ECCoinEvent from "../components/events/ECCoinEvent";
+import ECUtils from "../core/ECUtils";
 
 
 const {ccclass, property} = cc._decorator;
@@ -171,6 +172,7 @@ export default class ECHUDLayer extends ECBaseLayer {
             ECUIGroup.instance.node.addChild(tap);
             tap.setPosition(this.node.convertToNodeSpaceAR(coinevent.node.parent.convertToWorldSpaceAR(coinevent.node.position)));
 
+            ECGameController.instance.audio.playSoundAsync(ECUtils.getProperty("se_get_coin"));
             cc.tween(tap).to(2,
                 {
                     position:this.node.convertToNodeSpaceAR(
