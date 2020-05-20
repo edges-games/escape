@@ -1,23 +1,38 @@
 # Settings
 
 Visual Studio Code
+
 Code -> Preferences -> Settings
+
 ∟ Commonly used
+
   ∟ Files Exclude
+  
 
 **/*.meta
+
 **/library
+
 **/local
+
 **/migration
+
 **/settings
+
 **/temp
 
 Cocos Creator
+
 Project -> Project settings
+
 Group 0   default
+
 Group 1   ui
+
 Group 2   game
+
 Group 3   item
+
 Group 4   letter
 
 
