@@ -1,0 +1,47 @@
+{
+  "user": {
+    "name": "User",
+    "prefab": [
+      {
+        "name": "Scene",
+        "uuid": "29ed6f75-375b-4c82-9cc8-2d75d78fdd85"
+      },
+      {
+        "name": "Text",
+        "uuid": "e21fd429-4ffe-4b83-857a-58cdadf121ba"
+      },
+      {
+        "name": "Event",
+        "uuid": "dc8f19c5-e401-4147-ac87-dada1dd2ff0d"
+      },
+      {
+        "name": "Item",
+        "uuid": "b7d1d960-3b0e-4676-b2cc-50ee4218898e"
+      },
+      {
+        "name": "Scrap",
+        "uuid": "2180a95c-f8a2-4045-81d0-3a36529c4f2b"
+      },
+      {
+        "name": "Lock",
+        "uuid": "baa0d704-c2c7-439e-a8a6-ea8e347305dc"
+      },
+      {
+        "name": "Goto",
+        "uuid": "c25690e9-81b1-49e1-a750-57597ae9aeaf"
+      },
+      {
+        "name": "Coin",
+        "uuid": "ddf7ddc3-4798-44eb-93c7-76d6b8d31b71"
+      },
+      {
+        "name": "Detail",
+        "uuid": "b6d82849-272e-4e63-89ac-d8018c83e303"
+      },
+      {
+        "name": "Sliver",
+        "uuid": "453effd8-a47d-490c-868e-10bf60056b7b"
+      }
+    ]
+  }
+}
