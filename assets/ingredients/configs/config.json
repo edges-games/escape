@@ -1,0 +1,28 @@
+{
+	"StoreID": { "ios" : "1493045" },
+	"UnityAds": 
+	{ 
+		"android": {"gameId":"1498709"}, 
+		"ios": {"gameId":"1498708"}
+	},
+	"IAP":
+	{
+		"android": {"skus":["coin5","coin16","coin23","coin31","coin70"]},
+		"ios": {"skus":["coin5","coin16","coin23","coin31","coin70"]}
+	},
+	"AdMob":
+	{
+		"android":
+		{
+			"interstitial": "ca-app-pub-5057438790307275/1765730120", 
+			"banner": "ca-app-pub-5057438790307275/8662310963",
+			"appid": "ca-app-pub-5057438790307275~4914637644"
+		}, 
+		"ios":
+		{
+			"interstitial": "ca-app-pub-3940256099942544/1033173712", 
+			"banner": "ca-app-pub-3940256099942544/6300978111",
+			"appid": "ca-app-pub-3940256099942544~3347511713"
+		}
+	}
+}

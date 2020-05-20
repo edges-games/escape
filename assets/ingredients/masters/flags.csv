@@ -1,0 +1,10 @@
+round,flag,status,requisite,comment
+0,sample_item_flashlight,1,0,
+0,sample_item_battery,1,0,
+0,sample_tana,1,0,
+0,sample_tana_lock,0,0,
+0,sample_tana_close,0,0,
+0,scrap_sample_letter,1,0,
+0,hint_01,0,0,
+0,coin_01,1,0,
+0,mark_01,1,0,

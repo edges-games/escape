@@ -1,0 +1,263 @@
+
+        <table width="100%" border="1" cellspacing="0" style="font-size:12px" cellpadding="0">
+          <tbody id="flagList">
+            <tr>
+                <td rowspan="2" width="7%" align="center">{{index + 1}}</td>
+                <td width="7%" align="center">Type</td>
+                <td width="71%">
+                    <div class="layout horizontal">
+                    <select v-model="action.Type">
+                        <option disabled value="">Please select one</option>
+                        <option>Lock</option>
+                        <option>Unlock</option>
+                        <option>ShowText</option>
+                        <option>Delay</option>
+                        <option>UpdateFlag</option>
+                        <option>PlaySound</option>
+                        <option>StopSound</option>
+                        <option>StopBGM</option>
+                        <option>PlayBGM</option>
+                        <option>GotoScene</option>
+                        <option>GotoDetail</option>
+                        <option>ShowPanel</option>
+                        <option>HidePanel</option>
+                        <option>Native</option>
+                        <option>Emit</option>
+                        <option>Call</option>
+                        <option>To</option>
+                        <option>ShakeCamera</option>
+                      </select>
+                      <div v-if="action.Type === 'Lock'">
+                        &nbsp;&nbsp;ゲームをロックして何の操作でもできないようにする。
+                    </div>
+                    <div v-if="action.Type === 'Unlock'">
+                        &nbsp;&nbsp;ゲームのロックを解除して、自由操作にする。
+                    </div>
+                      <div v-if="action.Type === 'ShowText'">
+                        &nbsp;&nbsp;カーまで区切ったテキストキーの内容を連続的に表示する。
+                    </div>
+                    <div v-if="action.Type === 'Delay'">
+                        &nbsp;&nbsp;秒単位でウィットする。
+                    </div>
+                    <div v-if="action.Type === 'UpdateFlag'">
+                        &nbsp;&nbsp;指定したフラグを更新する。
+                    </div>
+                    <div v-if="action.Type === 'PlaySound'">
+                        &nbsp;&nbsp;音を再生する。
+                    </div>
+                    <div v-if="action.Type === 'PlayBGM'">
+                        &nbsp;&nbsp;BGMを再生する。
+                    </div>
+                    <div v-if="action.Type === 'GotoScene'">
+                        &nbsp;&nbsp;指定したシーンに遷移する。Quick:FadeOut演出せず遷移する。
+                    </div>
+                    <div v-if="action.Type === 'GotoDetail'">
+                        &nbsp;&nbsp;詳細画面を開く。パラメターはプレハブのIndexです。
+                    </div>
+                    <div v-if="action.Type === 'ShowPanel'">
+                        &nbsp;&nbsp;指定したパネルを表示する。
+                    </div>
+                    <div v-if="action.Type === 'HidePanel'">
+                        &nbsp;&nbsp;指定したパネルを閉じる。
+                    </div>
+                    <div v-if="action.Type === 'Emit'">
+                        &nbsp;&nbsp;ゲームシステムイベントを実行する。
+                    </div>
+                    <div v-if="action.Type === 'To'">
+                        &nbsp;&nbsp;イベントのChild nodeを動かせる($SCENE/の場合親はシーンです)。
+                    </div>
+                    <div v-if="action.Type === 'ShakeCamera'">
+                        &nbsp;&nbsp;カメラをシェークする。
+                    </div>
+                </div>
+                </td>
+                <td width="5%" align="center"><ui-button @confirm="onUp($event,index,group)">↑</ui-button></td>
+                <td width="5%" align="center"><ui-button v-on:click="onDown($event,index,group)">↓</ui-button></td>
+                <td width="5%" align="center"><ui-button @confirm="onRemove($event,index,group)">-</ui-button></td>
+                <td width="5%" align="center"><ui-button v-on:click="onAdd($event,index,group)">+</ui-button></td>
+            </tr>
+            <tr>
+                <td align="center">Parms</td>
+                <td colspan="5">
+                    <div v-if="action.Type === 'ShowText'">
+                        テキストキー:<input type="text" style="width:100%;" v-model="action.Params[0]"></input>
+                        <div style="color: yellow;" v-for="(index,key) in splitJoin(action.Params[0])" v-text="(index +1) + ' : ' + getString(key)"></div>
+                    </div>
+                    <div v-if="action.Type === 'Delay'">
+                        秒間:<input type="number" min="0" style="width:60;" v-model="action.Params[0]" step="any">
+                    </div>
+                    <div v-if="action.Type === 'UpdateFlag'">
+                        フラグ:<input type="text" style="width:50%;" v-model="action.Params[0]" step="any">
+                        ステータス:<select v-model="action.Params[1]">
+                            <option disabled value="">Please select one</option>
+                            <option>Stay</option>
+                            <option>Start</option>
+                            <option>Complete</option>
+                            <option>CompleteHidden</option>
+                          </select>
+                    </div>
+                    <div v-if="action.Type === 'Native'">
+                        ステータス:<select v-model="action.Params[0]">
+                            <option disabled value="">Please select one</option>
+                            <option>ShowBanner</option>
+                            <option>HideBanner</option>
+                            <option>Vibrate</option>
+                            <option>ShowInterstitial</option>
+                            <option>ShowVideo</option>
+                          </select>
+                          <span v-if="action.Params[0] === 'Vibrate'">
+                            ミリ秒:<input type="number" min="0" max="5000" v-model.number="action.Params[1]" />
+                        </span>
+                    </div>
+                    <div v-if="action.Type === 'PlaySound'">
+                        サウンド名:<input type="text" style="width:50%;" v-model="action.Params[0]"/>
+                        ロープ:<input :id="'loop_' + group + index" type="checkbox" v-model="action.Params[1]"/>
+                        <label :for="'loop_' + group + index">Loop</label>
+                    </div>
+                    <div v-if="action.Type === 'PlayBGM'">
+                        <input type="text" style="width:50%;" v-model="action.Params[0]"/>
+                    </div>
+                    <div v-if="action.Type === 'GotoScene'">
+                        シーン:<input type="text" v-model="action.Params[0]"/>
+                        演出せず:<input :id="'quick_' + group + index" type="checkbox" v-model="action.Params[1]"/>
+                        <label :for="'quick_' + group + index"  >Quick</label>
+                    </div>
+                    <div v-if="action.Type === 'GotoDetail'">
+                        プレハブの順番:<input type="text" v-model="action.Params[0]"/>
+                    </div>
+                    <div v-if="action.Type === 'ShowPanel'">
+                        パネル名:<select v-model="action.Params[0]">
+                            <option disabled value="">Please select one</option>
+                            <option>Map</option>
+                            <option>ItemBox</option>
+                            <option>Hint</option>
+                            <option>Shop</option>
+                            <option>Item</option>
+                            <option>Scrap</option>
+                            <option>Chat</option>
+                          </select>
+                          パラメーター:<input type="text" v-model="action.Params[1]" />
+                    </div>
+                    <div v-if="action.Type === 'HidePanel'">
+                        パネル名:<select v-model="action.Params[0]">
+                            <option disabled value="">Please select one</option>
+                            <option>Map</option>
+                            <option>ItemBox</option>
+                            <option>Hint</option>
+                            <option>Shop</option>
+                            <option>Item</option>
+                            <option>Detail</option>
+                            <option>Scrap</option>
+                            <option>Chat</option>
+                          </select>
+                    </div>
+                    <div v-if="action.Type === 'GetItem'">
+                        アイテム:<input type="text" v-model="action.Params[0]" />
+                    </div>
+                    <div v-if="action.Type === 'Emit'">
+                        イベント名:<select v-model="action.Params[0]">
+                            <option disabled value="">Please select one</option>
+                            <option>SwitchLight</option>
+                            <option>GetMap</option>
+                            <option>GetMessage</option>
+                            <option>GetFlashLight</option>
+                            <option>HideButton</option>
+                            <option>Effect</option>
+                            <option>ChatMessage</option>
+                            <option>GlobalEvent</option>
+                            <option>GetItem</option>
+                          </select>
+                          パラメーター1:<input type="text" v-model="action.Params[1]" />
+                          パラメーター2:<input type="text" v-model="action.Params[2]" />
+                    </div>
+                    <div v-if="action.Type === 'Call'">
+                        コンポーネント:<input type="text" v-model="action.Params[0]" />
+                        メソッド:<input type="text" v-model="action.Params[1]" />
+                        パラメーター:<input type="text" v-model="action.Params[2]" />
+                    </div>
+                    <div v-if="action.Type === 'ShakeCamera'">
+                        カメラ:<select v-model="action.Params[0]">
+                            <option disabled value="">Please select one</option>
+                            <option>GameCamera</option>
+                            <option>UICamera</option>
+                          </select>
+                        秒間:<input type="number" min="0" max="255" v-model.number="action.Params[1]" />
+                        X:<input type="number" min="0" max="255" v-model.number="action.Params[2]" />
+                        Y:<input type="number" min="0" max="255" v-model.number="action.Params[3]" />
+                    </div>
+                    <div v-if="action.Type === 'To'">
+                        子の名:<input type="text" v-model="action.Params[0]" />
+                        秒間:<input type="number" min="0" max="255" v-model.number="action.Params[1]" />
+                        動作:<select v-model="action.Params[2]">
+                        <option disabled value="">Please select one</option>
+                        <option>Position</option>
+                        <option>Scale</option>
+                        <option>Fade</option>
+                        <option>Color</option>
+                        <option>Rotation</option>
+                        <option>Active</option>
+                    </select>
+                        <span v-if="action.Params[2] === 'Position'">
+                            From:<input type="text" style="width: 100px;" v-model.number="action.Params[3]" />
+                            To:<input type="text" style="width: 100px;" v-model.number="action.Params[4]" />
+                        </span>
+                        <span v-if="action.Params[2] === 'Scale'">
+                            From:<input type="text" style="width: 100px;" v-model.number="action.Params[3]" />
+                            To:<input type="text" style="width: 100px;" v-model.number="action.Params[4]" />
+                        </span>
+                        <span v-if="action.Params[2] === 'Fade'">
+                            From:<input type="number" min="0" max="255" v-model.number="action.Params[3]" />
+                            To:<input type="number" min="0" max="255" v-model.number="action.Params[4]" />
+                        </span>
+                        <span v-if="action.Params[2] === 'Rotation'">
+                            From:<input type="number" min="0" max="360" v-model.number="action.Params[3]" />
+                            To:<input type="number" min="0" max="360" v-model.number="action.Params[4]" />
+                        </span>
+                        <span v-if="action.Params[2] === 'Color'">
+                            From:<input type="text" style="width: 100px;" v-model.number="action.Params[3]" />
+                            To:<input type="text" style="width: 100px;" v-model.number="action.Params[4]" />
+                        </span>
+                        <span v-if="action.Params[2] === 'Active'">
+                            <input :id="'active_' + group + index" type="checkbox" v-model="action.Params[3]"/>
+                            <label :for="'active_' + group + index">有効</label>
+                        </span>
+                        <!-- Easing:<select v-model="action.Params[10]">
+                            <option disabled value="">Easing</option>
+                            <option>quadIn</option>
+                            <option>quadOut</option>
+                            <option>quadInOut</option>
+                            <option>cubicIn</option>
+                            <option>cubicOut</option>
+                            <option>ubicInOut</option>
+                            <option>quartIn</option>
+                            <option>quartOut</option>
+                            <option>quartInOut</option>
+                            <option>quintIn</option>
+                            <option>quintOut</option>
+                            <option>quintInOut</option>
+                            <option>sineIn</option>
+                            <option>sineOut</option>
+                            <option>sineInOut</option>
+                            <option>expoIn</option>
+                            <option>expoOut</option>
+                            <option>expoInOut</option>
+                            <option>circIn</option>
+                            <option>circOut</option>
+                            <option>circInOut</option>
+                            <option>elasticIn</option>
+                            <option>elasticOut</option>
+                            <option>elasticInOut</option>
+                            <option>backIn</option>
+                            <option>backOut</option>
+                            <option>backInOut</option>
+                            <option>bounceIn</option>
+                            <option>bounceOut</option>
+                            <option>bounceInOut</option>
+                            <option>smooth</option>
+                            <option>fade</option>
+                        </select> -->
+                    </div>
+                </td>
+            </tr>
+          </tbody>
+        </table>

@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.4",
+  "uuid": "ca6966db-fe31-4358-8db7-7da1bf1143ac",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 120,
+  "height": 40,
+  "platformSettings": {},
+  "subMetas": {
+    "name_sachiko": {
+      "ver": "1.0.4",
+      "uuid": "d3d366ac-3698-4505-a5ee-31a76da8d2dc",
+      "rawTextureUuid": "ca6966db-fe31-4358-8db7-7da1bf1143ac",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -2,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 116,
+      "height": 40,
+      "rawWidth": 120,
+      "rawHeight": 40,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

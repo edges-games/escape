@@ -1,0 +1,49 @@
+[
+	{
+		"Type": "Lock",
+		"Params": ""
+	},
+	{
+		"Type": "Delay",
+		"Params": {
+			"0": "1"
+		}
+	},
+	{
+		"Type": "UpdateFlag",
+		"Params": {
+			"0": "sample_tana",
+			"1": "CompleteHidden"
+		}
+	},
+	{
+		"Type": "UpdateFlag",
+		"Params": {
+			"0": "sample_tana_lock",
+			"1": "CompleteHidden"
+		}
+	},
+	{
+		"Type": "PlaySound",
+		"Params": {
+			"0": "audios/se/se_gimmick_unlock"
+		}
+	},
+	{
+		"Type": "UpdateFlag",
+		"Params": {
+			"0": "sample_tana_close",
+			"1": "Start"
+		}
+	},
+	{
+		"Type": "GotoDetail",
+		"Params": {
+			"0": "2"
+		}
+	},
+	{
+		"Type": "Unlock",
+		"Params": false
+	}
+]

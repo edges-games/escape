@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.4",
+  "uuid": "17057513-2fdf-4073-a48c-48b38054ad3b",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 120,
+  "height": 40,
+  "platformSettings": {},
+  "subMetas": {
+    "name_kuroki": {
+      "ver": "1.0.4",
+      "uuid": "4da4852b-587d-4c5d-a9c7-a357087130c0",
+      "rawTextureUuid": "17057513-2fdf-4073-a48c-48b38054ad3b",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -2,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 116,
+      "height": 40,
+      "rawWidth": 120,
+      "rawHeight": 40,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

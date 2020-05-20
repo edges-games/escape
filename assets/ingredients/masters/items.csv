@@ -1,0 +1,4 @@
+ID,FromA,FromB,ToA,ToB,Back,flag,Smart,説明
+item_battery,,,,,0,,0,電池
+item_flashlight,,,,,0,,0,懐中電灯
+item_flashlight2,item_flashlight,item_battery,item_flashlight,item_battery,0,,0,懐中電灯（光）

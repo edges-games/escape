@@ -1,0 +1,34 @@
+{
+  "name": "escape",
+  "version": "0.0.1",
+  "description": "The package for editting flags.",
+  "author": "Vinson",
+  "main": "main.js",
+  "main-menu": {
+    "Escape game/Flag editor": {
+      "message": "escape:open"
+    },
+    "Escape game/Action editor": {
+      "message": "escape:openAction"
+    }
+  },
+
+    "panel.flag_panel": {
+      "main": "panel/index.js",
+      "type": "dockable",
+      "title": "Flag editor",
+      "tagName": "Flag editor",
+      "width": 600,
+      "height": 800
+    },
+    "panel.action_panel": {
+      "template":"panel/action.html",
+      "main": "panel/action.js",
+      "type": "dockable",
+      "title": "Action editor",
+      "tagName": "Action editor",
+      "width": 600,
+      "height": 800
+    }
+  
+}
