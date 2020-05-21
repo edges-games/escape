@@ -27,6 +27,7 @@ export default class ECUIGroup extends cc.Component {
     @property(cc.Prefab) markPrefab: cc.Prefab = null;
     @property(cc.Prefab) mapPrefab: cc.Prefab = null;
     @property(cc.Prefab) attentionPrefab: cc.Prefab = null;
+    @property(cc.Prefab) splashPrefab: cc.Prefab = null;
     private _Standup: cc.Node = null;
     private _HUD: cc.Node = null;
     private _Setting: cc.Node = null;
@@ -45,7 +46,7 @@ export default class ECUIGroup extends cc.Component {
     private _Message: cc.Node = null;
     private _Mark: cc.Node = null;
     private _Attention: cc.Node = null;
-    
+    private _Splash: cc.Node = null;
     static instance:ECUIGroup = null;
 
     onInitialize ()
@@ -90,6 +91,8 @@ export default class ECUIGroup extends cc.Component {
         this.node.addChild(this._Message);
         this._Attention = new cc.Node();
         this.node.addChild(this._Attention);
+        this._Splash = new cc.Node();
+        this.node.addChild(this._Splash);
 
         this.showLaver(this.detailPrefab, this._Detail, false);
         this.showLaver(this.textPrefab, this._Text, true);
@@ -140,6 +143,26 @@ export default class ECUIGroup extends cc.Component {
     public showStandup()
     {
         this.showLaver(this.standupPrefab, this._Standup);
+    }
+
+    public showSplash()
+    {
+        this.showLaver(this.splashPrefab, this._Splash);
+    }
+
+    public hideSplash()
+    {
+        this._Splash.destroy();
+    }
+
+    public showAttention()
+    {
+        this.showLaver(this.attentionPrefab, this._Attention);
+    }
+
+    public hideAttention()
+    {
+        this._Attention.destroy();
     }
 
     public hideStandup()

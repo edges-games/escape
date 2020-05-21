@@ -9,7 +9,6 @@ export default class ECFlashLight extends cc.Component {
     @property(cc.Node) Light: cc.Node = null;
     @property(cc.Node) Dark: cc.Node = null;
     @property(cc.Node) Mask: cc.Node = null;
-    @property({type:cc.AudioClip}) switchSound:cc.AudioClip = null;
 
     onInitialize()
     {
@@ -42,10 +41,6 @@ export default class ECFlashLight extends cc.Component {
 
     onSwitchLight(on)
     {
-        if(this.switchSound)
-        {
-            ECGameController.instance.audio.playSound(this.switchSound);
-        }
         this.Light.active = on;
         this.Dark.active = !on;
     }

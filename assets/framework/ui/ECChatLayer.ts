@@ -1,7 +1,6 @@
 import ECBaseLayer from "./ECBaseLayer";
 import ECChatItem from "./ECChatItem";
-import ECSaveKeys from "../consts/ECSaveKeys";
-import { ECEvents, } from "../consts/ECConsts";
+import { ECEvents, ECSaveKeys } from "../consts/ECConsts";
 import ECGameController from "../core/ECGameController";
 import ECLocalStorage from "../core/ECLocalStorage";
 import ECTouchEvent from "../components/events/ECTouchEvent";

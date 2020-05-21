@@ -13,7 +13,7 @@ export default class AttentionLayer extends ECBaseLayer {
     {
         setTimeout(() => {
             this.gotoTitle();
-        }, 5000);
+        }, 4000);
     }
 
     gotoTitle()

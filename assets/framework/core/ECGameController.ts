@@ -1,10 +1,9 @@
-import { ECEvents, ECActionTypes, ECFlagStatus } from "../consts/ECConsts";
+import { ECEvents, ECActionTypes, ECFlagStatus, ECSaveKeys } from "../consts/ECConsts";
 import ECScene from "./ECScene";
 import ECAudio from "./ECAudio";
 import ECMasterData, { ItemData } from "./ECMasterData";
 import ECProperties from "../consts/ECProperties";
 import ECFlashLight from "../components/commons/ECFlashLight";
-import ECSaveKeys from "../consts/ECSaveKeys";
 import ECLocalStorage from "./ECLocalStorage";
 import ECEvent from "../components/events/ECEvent";
 import Native from "../native/ECNative";

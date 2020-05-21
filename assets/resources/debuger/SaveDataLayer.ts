@@ -1,9 +1,9 @@
 
 import SaveDataItem from "./SaveDataItem";
 import ECGameController from "../../framework/core/ECGameController";
-import ECSaveKeys from "../../framework/consts/ECSaveKeys";
 import ECUIGroup from "../../framework/ui/ECUIGroup";
 import ECLocalStorage from "../../framework/core/ECLocalStorage";
+import { ECSaveKeys } from "../../framework/consts/ECConsts";
 const {ccclass, property} = cc._decorator;
 
 @ccclass

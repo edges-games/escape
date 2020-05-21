@@ -3,8 +3,7 @@ import StorageLayer from "./StorageLayer";
 import ECGameController from "../../framework/core/ECGameController";
 import Native from "../../framework/native/ECNative";
 import ECLocalization from "../../framework/core/ECLocalization";
-import { ECStrings, ECEvents, ECFlagStatus } from "../../framework/consts/ECConsts";
-import ECSaveKeys from "../../framework/consts/ECSaveKeys";
+import { ECStrings, ECEvents, ECFlagStatus, ECSaveKeys } from "../../framework/consts/ECConsts";
 import ECUIGroup from "../../framework/ui/ECUIGroup";
 
 const {ccclass, property} = cc._decorator;

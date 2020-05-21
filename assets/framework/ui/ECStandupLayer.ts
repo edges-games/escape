@@ -64,7 +64,7 @@ export default class ECStandupLayer extends ECBaseLayer
         .to(1,{opacity:255})
         .call(()=>
         {
-            cc.loader.loadRes("openning",cc.Prefab,function(error,prefab)
+            cc.loader.loadRes("opening",cc.Prefab,function(error,prefab)
             {
                 let openning:cc.Node = cc.instantiate(prefab);
                 this.node.parent.addChild(openning);

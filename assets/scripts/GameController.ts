@@ -21,6 +21,20 @@ export default class GameController extends ECGameController
         Native.cooperate(JSON.stringify(this.properties.naitve.json));
         super.onLoad();
         this.uigroup.onInitialize();
-        this.uigroup.showStandup();
+        this.uigroup.showSplash();
+
+        cc.tween(ECGameController.instance.mask).delay(1)
+        .call(()=>{ECGameController.instance.mask.active=true;})
+        .to(1,{opacity:255})
+        .call(()=>
+        {
+          this.uigroup.hideSplash();
+          this.uigroup.showAttention();
+                cc.tween(ECGameController.instance.mask).to(1,{opacity:0})
+                .delay(1)
+                .call(()=>{ECGameController.instance.mask.active=false;})
+                .start();
+         
+        }).start();
     }
 }

@@ -84,3 +84,17 @@ export const ECStrings = {
     LK_GO_EDGES_URL_IOS : "LK_GO_EDGES_URL_IOS",
     LK_GO_EDGES_URL_ANDROID : "LK_GO_EDGES_URL_ANDROID"
 };
+
+export const ECSaveKeys = {
+    EnableSound : "EnableSound",
+    EnableMusic : "EnableMusic",
+    EnableVibration : "EnableVibration",
+    Items : "Items",
+    EnableMap : "EnableMap",
+    EnableMessage : "EnableMessage",
+    CurrentItem : "CurrentItem",
+    Coin : "Coin",
+    ContinueScene : "ContinueScene",
+    ChatContent : "ChatContent",
+    GlobalEvents : "GlobalEvents"
+}

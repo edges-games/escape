@@ -3186,9 +3186,15 @@
       "y": 80,
       "z": 0
     },
-    "itemSelect": null,
-    "itemChanged": null,
-    "itemError": null,
+    "itemSelect": {
+      "__uuid__": "27e2246f-932a-4bb7-a99a-c1eb3dc3f362"
+    },
+    "itemChanged": {
+      "__uuid__": "a6812d3c-23de-40dc-b7ee-97502501804f"
+    },
+    "itemError": {
+      "__uuid__": "1b4dfddf-ff23-4102-85d2-eb4849644154"
+    },
     "onDismantle": null,
     "_id": ""
   },
