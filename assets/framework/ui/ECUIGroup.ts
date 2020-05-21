@@ -99,6 +99,7 @@ export default class ECUIGroup extends cc.Component {
         this.showLaver(this.itemPrefab, this._Item, false);
         this.showLaver(this.scrapDetailPrefab, this._ScrapDetail, false);
         this.showLaver(this.titlePrefab, this._Title, false);
+        this.showLaver(this.markPrefab, this._Mark, false);
     }
 
     private showLaver(layerPrefab:cc.Prefab, parent:cc.Node, active:boolean = true, args:any = null)

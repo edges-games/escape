@@ -55,7 +55,7 @@
     "LK_HINT_01_TITLE":"コインの使い道",
     "LK_HINT_01_CONTENT":"コインでヒントを見ることができます\nコインはいろいろな場所に\n隠れています\n念入りに探してみましょう",
     "LK_SCRAP_SAMPLE_LETTER_TITLE":"フレームワークの使い方",
-    "LK_SCRAP_SAMPLE_LETTER_CONTENT":"テキストの色は<color=ff0000></color>\n　 で変更できます。\n\n<sound=audios/se/se_getcoin/>音が再生できる",
+    "LK_SCRAP_SAMPLE_LETTER_CONTENT":"テキストの色は<color=ff0000>\\<color=ff0000\\>\\</color\\></color>\nで変更できます。\n\n<sound=audios/se/se_getcoin/>音が再生できる",
     "LK_ITEM_BATTERY_NAME":"電池",
     "LK_ITEM_BATTERY_DESC":"単３電池だ",
     "LK_ITEM_FLASHLIGHT_NAME":"懐中電灯",

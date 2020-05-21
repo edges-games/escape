@@ -603,7 +603,9 @@
     "_enabled": true,
     "playOnStart": false,
     "playOnTouch": true,
-    "source": null,
+    "source": {
+      "__id__": 15
+    },
     "_id": ""
   },
   {

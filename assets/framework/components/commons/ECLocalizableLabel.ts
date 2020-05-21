@@ -3,7 +3,7 @@ const {ccclass, property, requireComponent} = cc._decorator;
 
 @ccclass
 @requireComponent(cc.Label)
-export default class LocalizableLabel extends cc.Component {
+export default class ECLocalizableLabel extends cc.Component {
 
     @property Key: string = '';
     @property richText: boolean = false;
@@ -34,7 +34,7 @@ export default class LocalizableLabel extends cc.Component {
 
     onEnable()
     {
-        if(this.richText)
+        if(this.richText && this.Key)
         {
             let value = this.processValue(ECLocalization.format(this.Key));
             this.label.string = "";
@@ -65,7 +65,7 @@ export default class LocalizableLabel extends cc.Component {
                 let index = value.indexOf(match);
                 index -= ((value.substr(0,index)).match(/\n/g) || []).length;
                 let color = parseInt((match.substring(7,13) + "FF").split("").reverse().join(""), 16);
-                let realValue = match.replace(/<[^>]+>/g,"");
+                let realValue = match.replace(/<color=([0-9A-Fa-f]{6})>/g, "").replace("</color>","").replace(/\\</g, "<").replace(/\\>/g,">");
                 for(let j = index, l = index + realValue.length ; j < l; j++)
                 {
                     this.colors[j] = color;

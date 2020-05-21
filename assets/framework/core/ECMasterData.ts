@@ -70,7 +70,7 @@ export default class ECMasterData extends cc.Component {
         for(let i=1;i<flagdata.length;i++)
         {
             var data:FlagData = new FlagData();
-            data.flag = flagdata[i][0];
+            data.round = flagdata[i][0];
             data.flag = flagdata[i][1];
             data.status = flagdata[i][2];
             data.requisite = flagdata[i][3];

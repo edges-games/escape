@@ -2,6 +2,7 @@ import ECBaseLayer from "./ECBaseLayer";
 import ECGameController from "../core/ECGameController";
 import { ECEvents } from "../consts/ECConsts";
 import ECLocalization from "../core/ECLocalization";
+import ECLocalizableLabel from "../components/commons/ECLocalizableLabel";
 
 const {ccclass, property} = cc._decorator;
 
@@ -32,7 +33,7 @@ export default class ECScrapDetailLayer extends ECBaseLayer
     public show(args:any)
     {
         this.title.string = ECLocalization.format("LK_" + args.flag.toUpperCase() + "_TITLE");
-        this.content.string = ECLocalization.format("LK_" + args.flag.toUpperCase() + "_CONTENT");
+        this.content.getComponent(ECLocalizableLabel).Key = "LK_" + args.flag.toUpperCase() + "_CONTENT";
         this.getComponentInChildren(cc.ScrollView).scrollToTop();
         cc.loader.loadRes("scraps/" + args.background,cc.SpriteFrame,function(error,spriteFrame){this.sprite.spriteFrame = spriteFrame}.bind(this));
         super.show();
