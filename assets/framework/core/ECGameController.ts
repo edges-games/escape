@@ -6,7 +6,7 @@ import ECProperties from "../consts/ECProperties";
 import ECFlashLight from "../components/commons/ECFlashLight";
 import ECLocalStorage from "./ECLocalStorage";
 import ECEvent from "../components/events/ECEvent";
-import Native from "../native/ECNative";
+import ECNative from "../native/ECNative";
 import { ECShake } from "../action/ECShake";
 
 
@@ -504,7 +504,7 @@ export default class ECGameController extends cc.Component
                 {
                     if(params[0] == "Vibrate")
                     {
-                        Native.vibrate(parseInt(params[1]));
+                        ECNative.vibrate(parseInt(params[1]));
                     }
                 });
             }

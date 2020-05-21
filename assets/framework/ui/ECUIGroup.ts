@@ -1,7 +1,7 @@
 import BaseLayer from "./ECBaseLayer";
 import { ECEvents } from "../consts/ECConsts";
 import ECGameController from "../core/ECGameController";
-import Native from "../native/ECNative";
+import ECNative from "../native/ECNative";
 
 const {ccclass, property} = cc._decorator;
 
@@ -255,7 +255,7 @@ export default class ECUIGroup extends cc.Component {
 
     public showMovie()
     {
-        Native.showUnityVideoAd((result)=>{if(result == "completed") ECGameController.instance.getCoin(1);});
+        ECNative.showUnityVideoAd((result)=>{if(result == "completed") ECGameController.instance.getCoin(1);});
     }
 
     public showSetting()

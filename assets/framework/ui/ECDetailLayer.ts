@@ -6,7 +6,7 @@ import ECLocalization from "../core/ECLocalization";
 import ECEvent from "../components/events/ECEvent";
 import ECTouchEvent from "../components/events/ECTouchEvent";
 import ECUIGroup from "./ECUIGroup";
-import Native from "../native/ECNative";
+import ECNative from "../native/ECNative";
 import ECUtils from "../core/ECUtils";
 import ECDetailEventData from "../components/gimmicks/ECDetailEventData";
 
@@ -103,7 +103,7 @@ export default class DetailLayer extends ECBaseLayer
 
     movie()
     {
-        Native.showUnityVideoAd((result)=>{if(result == "completed"){
+        ECNative.showUnityVideoAd((result)=>{if(result == "completed"){
             ECGameController.instance.setFlagStatus(this.currentDetail.hint,ECFlagStatus.Complete,false,true);
             ECUIGroup.instance.showHintDetal({flag:this.currentDetail.hint});
         }});

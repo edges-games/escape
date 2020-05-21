@@ -1,8 +1,8 @@
 import ECBaseLayer from "./ECBaseLayer";
 import { ECEvents } from "../consts/ECConsts";
 import ECGameController from "../core/ECGameController";
-import Native from "../native/ECNative";
 import ECLocalization from "../core/ECLocalization";
+import ECUtils from "../core/ECUtils";
 
 const {ccclass, property} = cc._decorator;
 
@@ -85,7 +85,7 @@ export default class ECTextLayer extends ECBaseLayer {
         this.label.string = "";
         this.node.opacity = 0;
         this.unscheduleAllCallbacks();
-        Native.stopTween(this.currentTween);
+        ECUtils.stopTween(this.currentTween);
 
         var values = key.split(',');
         

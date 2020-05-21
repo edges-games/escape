@@ -3,7 +3,7 @@ import ECGameController from "../core/ECGameController";
 import ECUIGroup from "./ECUIGroup";
 import ECLocalization from "../core/ECLocalization";
 import { ECStrings } from "../consts/ECConsts";
-import Native from "../native/ECNative";
+import ECNative from "../native/ECNative";
 
 const {ccclass, property} = cc._decorator;
 
@@ -87,7 +87,7 @@ export default class ECStandupLayer extends ECBaseLayer
 
     review()
     {
-        Native.goReview(ECLocalization.format(ECStrings.LK_REVIEW_DIALOG_TITLE),ECLocalization.format(ECStrings.LK_REVIEW_DIALOG_CONTENT));
+        ECNative.goReview(ECLocalization.format(ECStrings.LK_REVIEW_DIALOG_TITLE),ECLocalization.format(ECStrings.LK_REVIEW_DIALOG_CONTENT));
     }
 
     public showSetting()

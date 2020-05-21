@@ -1,5 +1,5 @@
 import ECGameController from "../framework/core/ECGameController";
-import Native from "../framework/native/ECNative";
+import ECNative from "../framework/native/ECNative";
 import ECUIGroup from "../framework/ui/ECUIGroup";
 
 const {ccclass, property} = cc._decorator;
@@ -12,13 +12,13 @@ export default class GameController extends ECGameController
 
     onLoad ()
     {
-        Native.InAppPurchaseFinished = (result,sku)=>{
+        ECNative.InAppPurchaseFinished = (result,sku)=>{
             if(result == "completed")
             {
                 ECGameController.instance.getCoin(parseInt(sku.replace("coin","")));
             }
         }
-        Native.cooperate(JSON.stringify(this.properties.naitve.json));
+        ECNative.cooperate(JSON.stringify(this.properties.naitve.json));
         super.onLoad();
         this.uigroup.onInitialize();
         this.uigroup.showSplash();

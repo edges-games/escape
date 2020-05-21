@@ -2,7 +2,6 @@ import ECBaseLayer from "./ECBaseLayer";
 import { ECEvents } from "../consts/ECConsts";
 import ECGameController from "../core/ECGameController";
 import ECUIGroup from "./ECUIGroup";
-import Native from "../native/ECNative";
 import ECCoinEvent from "../components/events/ECCoinEvent";
 import ECUtils from "../core/ECUtils";
 
@@ -127,7 +126,7 @@ export default class ECHUDLayer extends ECBaseLayer {
 
     public showMovie()
     {
-        Native.showUnityVideoAd((result)=>{if(result == "completed") ECGameController.instance.getCoin(1);});
+        ECUIGroup.instance.showMovie();
     }
 
     public showSetting()

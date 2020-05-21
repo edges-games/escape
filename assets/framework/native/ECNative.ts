@@ -1,12 +1,8 @@
-const {ccclass, property} = cc._decorator;
-export default class Native 
+export default class ECNative 
 {
     static UnityVideoAdCallback = null;
     static InAppPurchaseFinished = null;
     static SkuDetailsResponse = null;
-    static stopTween(tween:cc.Tween) {
-        (tween&& (tween as any)._finalAction.target) && tween.stop();
-    }
 
     private static callNativeFunction(methodName: string, methodSignature:{android,ios} = {android:"()V",ios:""}, ...parameters:any):any
     {
@@ -151,9 +147,9 @@ export default class Native
         this.callNativeFunction("hideAdmobBanner");
     }
 
-    static showAdmobIntersititial()
+    static showAdmobInterstitial()
     {
-        this.callNativeFunction("showAdmobIntersititial");
+        this.callNativeFunction("showAdmobInterstitial");
     }
 
     static getSystemLanguage() : string

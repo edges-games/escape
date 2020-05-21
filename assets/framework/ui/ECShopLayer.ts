@@ -1,5 +1,5 @@
 import ECBaseLayer from "./ECBaseLayer";
-import Native from "../native/ECNative";
+import ECNative from "../native/ECNative";
 import ECUIGroup from "./ECUIGroup";
 
 const {ccclass} = cc._decorator;
@@ -9,7 +9,7 @@ export default class ECShopLayer extends ECBaseLayer
 {
     public buyCoin(event:any, customData:string)
     {
-        Native.launchBillingFlow(customData);
+        ECNative.launchBillingFlow(customData);
     }
 
     public showMovie()
