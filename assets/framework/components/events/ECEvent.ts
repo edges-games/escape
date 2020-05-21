@@ -17,11 +17,9 @@ export default class ECEvent extends cc.Component
     {
         if(!this.flag) return;
 
-        let round = ECGameController.instance.getFlagRound(this.flag);
-        if((round != 0 && (round == 1 && ECGameController.instance.playRound > 1)) ||
-           (round != 0 && (round != 1 && round > ECGameController.instance.playRound)))
+        if(ECGameController.instance.getFlagRound(this.flag) > ECGameController.instance.playRound)
         {
-            this.node.destroy();
+            this.node.active = false;
             return;
         }
 
