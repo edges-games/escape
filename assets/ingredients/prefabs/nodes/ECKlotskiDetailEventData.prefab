@@ -218,7 +218,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "Background<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 2
@@ -232,7 +232,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "a4dc5aaf-8009-4a33-ae7e-36cdd70bb06b"
+      "__uuid__": "a7cfc799-f8eb-4a98-9fff-59fdf9fc4eb7"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -273,9 +273,8 @@
     "showHelp": false,
     "onClose": null,
     "actions": null,
-    "itemParent": {
-      "__id__": 3
-    },
+    "question": "1319101\n3050020\n0002050\n2000305\n2020000\n3002000\n0200020",
+    "answer": "0000000\n0000000\n0000000\n0000000\n0000000\n0009000\n0009000",
     "blocks": [
       {
         "__uuid__": "f6429e4d-07d6-4edf-ae20-ca53ab5d2983"
@@ -290,6 +289,9 @@
         "__uuid__": "c70e8fb0-4fc5-41de-99a4-6b9ce47cc432"
       }
     ],
+    "itemParent": {
+      "__id__": 3
+    },
     "_id": ""
   },
   {

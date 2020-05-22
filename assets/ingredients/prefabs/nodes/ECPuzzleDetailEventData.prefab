@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "sample_klotski",
+    "_name": "ECPuzzleDetailEventData",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -180,8 +180,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        5,
-        22,
+        4,
+        24,
         0,
         0,
         0,
@@ -211,9 +211,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "21a47943-8894-4ec5-bb79-21301aa0507d"
+      "__uuid__": "7223d5e2-c1a0-43bd-8e4a-7f9f2b34a93d"
     },
-    "fileId": "49II3pRURJQpXeqqiChrg/",
+    "fileId": "68bepI4ZJKiqiTtJs2XXP9",
     "sync": false
   },
   {
@@ -232,7 +232,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "a4dc5aaf-8009-4a33-ae7e-36cdd70bb06b"
+      "__uuid__": "a7cfc799-f8eb-4a98-9fff-59fdf9fc4eb7"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -254,13 +254,13 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "21a47943-8894-4ec5-bb79-21301aa0507d"
+      "__uuid__": "7223d5e2-c1a0-43bd-8e4a-7f9f2b34a93d"
     },
-    "fileId": "5dsJX5b8dKb6lEwXMcnuP0",
+    "fileId": "b7t0ZUYddOfLg+G/xOj6+a",
     "sync": false
   },
   {
-    "__type__": "7fd51zpm71Cgo1MmiS/4JZR",
+    "__type__": "ab12fjvpNFALopFGSUJ/cMj",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -273,23 +273,66 @@
     "showHelp": false,
     "onClose": null,
     "actions": null,
+    "gridX": 4,
+    "gridY": 4,
+    "gridSize": {
+      "__type__": "cc.Vec2",
+      "x": 66,
+      "y": 66
+    },
     "itemParent": {
       "__id__": 3
     },
-    "question": "1319101\n3050020\n0002050\n2000305\n2020000\n3002000\n0200020",
-    "answer": "0000000\n0000000\n0000000\n0000000\n0000000\n0009000\n0009020",
+    "question": "1,14,5,3,\n0,2,9,6,\n8,11,12,7,\n13,4,10,15",
+    "answer": "0,1,2,3,\n4,5,6,7,\n8,9,10,11,\n12,13,14,-1",
     "blocks": [
       {
-        "__uuid__": "f6429e4d-07d6-4edf-ae20-ca53ab5d2983"
+        "__uuid__": "1844e50c-05db-492d-864b-105107b532b1"
       },
       {
-        "__uuid__": "20586873-a2c3-4588-810f-7c1816d9cad4"
+        "__uuid__": "8724041c-6191-4aac-8919-a51e4caedb53"
       },
       {
-        "__uuid__": "495944e5-3bba-4e8a-acc0-e07a874dd9d7"
+        "__uuid__": "dc88b7cd-bb98-4146-9329-0b6b77f6e265"
       },
       {
-        "__uuid__": "c70e8fb0-4fc5-41de-99a4-6b9ce47cc432"
+        "__uuid__": "43375cea-81f5-47e1-8e35-d0f793614a1a"
+      },
+      {
+        "__uuid__": "a569cf7a-af93-4732-bd2e-1b34a3c06f15"
+      },
+      {
+        "__uuid__": "245a19b5-7257-448d-834a-62e4b40c30bc"
+      },
+      {
+        "__uuid__": "0056af6f-0691-4c4b-968d-bd094fc89cbd"
+      },
+      {
+        "__uuid__": "049fb23c-5486-4028-ad75-893fc5368be4"
+      },
+      {
+        "__uuid__": "099baae8-9fba-49d5-9f07-b6438924758e"
+      },
+      {
+        "__uuid__": "1d4e8559-5d84-402a-bf28-fd7ac903a5fd"
+      },
+      {
+        "__uuid__": "e68362a9-0e1b-4f2c-a296-13c4a320350b"
+      },
+      {
+        "__uuid__": "af8bb5c1-32dc-45d8-a9f7-f3ac634003d6"
+      },
+      {
+        "__uuid__": "95f3125e-9b43-499c-9d10-2ccd027164de"
+      },
+      {
+        "__uuid__": "b2606397-615b-4b30-ba55-dd8be6eac781"
+      },
+      {
+        "__uuid__": "cd19af75-e007-4b2f-82ba-46c3dab415d2"
+      },
+      {
+        "__uuid__": "645803aa-e959-48b1-98da-d7f4df8ee914"
       }
     ],
     "_id": ""
@@ -300,9 +343,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "21a47943-8894-4ec5-bb79-21301aa0507d"
+      "__uuid__": "7223d5e2-c1a0-43bd-8e4a-7f9f2b34a93d"
     },
-    "fileId": "04kcaYnCBAubCRntVjJKt0",
+    "fileId": "adKJosFdVKuY9hDeCx7zq+",
     "sync": false
   }
 ]
