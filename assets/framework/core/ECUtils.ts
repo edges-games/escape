@@ -38,4 +38,7 @@ export default class ECUtils {
         }
         return null;
     }
+
+    public static clamp(a,b,c){return Math.max(b,Math.min(c,a));};
+
 }

@@ -1,33 +1,29 @@
 const {ccclass, property} = cc._decorator;
-import ECKlotskiItem from "./ECKlotskiItem"
+
 import ECDetailEventData from "./ECDetailEventData";
+import ECUtils from "../../core/ECUtils";
+import ECKlotskiItem from "./ECKlotskiItem";
 
 @ccclass
 export default class ECKlotskiDetailEventData extends ECDetailEventData
 {
+    @property({multiline: true}) question:string = "";
+    @property({multiline: true}) answer:string = "";
+    @property({type:[cc.SpriteFrame]}) blocks:cc.SpriteFrame[] = [];
+    @property(cc.Node) itemParent:cc.Node = null;
+
     private target:ECKlotskiItem;
     private gridX:number = 7;
     private gridY:number = 7;
     private gridSize:cc.Size = cc.size(38,38);
-    
     private startX:number = 0;
-    
     private startY:number = 0;
-    
     private space:number = 0;
-    
     private map:number[] = [];
-    
     private items:ECKlotskiItem[] = [];
-
-    clamp=function(a,b,c){return Math.max(b,Math.min(c,a));};
-
-    @property(cc.Node) itemParent:cc.Node = null;
-    @property({multiline: true}) question:string = "";
-    @property({multiline: true}) answer:string = "";
-    @property({type:[cc.SpriteFrame]}) blocks:cc.SpriteFrame[] = [];
-
     private answerData:number[] = null;
+
+    
     onInitialize()
     {   
         this.startX = ((this.gridX * this.gridSize.width) + (this.gridX * this.space)) / -2 + (this.space + this.gridSize.width) / 2;
@@ -39,16 +35,6 @@ export default class ECKlotskiDetailEventData extends ECDetailEventData
         this.node.on(cc.Node.EventType.TOUCH_CANCEL,this.onTouchEnd,this);
 
         let data:number[] = this.question.replace(/\n/g,"").split("").map((item)=>{ return parseInt(item);});
-
-        data = [
-            1,3,1,9,1,0,1,
-            3,0,5,0,0,2,0,
-            0,0,0,2,0,5,0,
-            2,0,0,0,3,0,5,
-            2,0,2,0,0,0,0,
-            3,0,0,2,0,0,0,
-            0,2,0,0,0,2,0
-        ];
         this.answerData = this.answer.replace(/\n/g,"").split("").map((item)=>{ return parseInt(item);});
 
         for(let i = 0; i < this.gridX * this.gridY; i++)
@@ -56,15 +42,16 @@ export default class ECKlotskiDetailEventData extends ECDetailEventData
             let x = i % this.gridX;
             let y = Math.floor(i / this.gridX);
 
-            let type = data[i];
-            if(type != 0)
+            if(data[i] != 0)
             {
-                let item1:ECKlotskiItem = this.createItem(x,y,type);
+                let item1:ECKlotskiItem = this.createItem(x,y,data[i]);
                 item1.node.setPosition(this.createPosition(item1.x, item1.y));
                 this.items.push(item1);
                 this.itemParent.addChild(item1.node);
             }
         }
+        
+        this.createMap();
         
         return false;
     }
@@ -126,7 +113,7 @@ export default class ECKlotskiDetailEventData extends ECDetailEventData
             this.isCompleted = true;
         }
     }
-    
+
     convertIndex( x,  y):number
     {
         return x % this.gridX + y * this.gridY;
@@ -324,8 +311,8 @@ export default class ECKlotskiDetailEventData extends ECDetailEventData
     {
         let m:cc.Vec2 = cc.v2(position.x - this.startX,this.startY - position.y).add(cc.v2(this.gridSize.width/2, this.gridSize.height/-2 + this.gridSize.height));
         
-        let y = this.clamp(Math.floor(m.y/this.gridSize.height),0,this.gridY - 1);
-        let x = this.clamp(Math.floor(m.x/this.gridSize.width),0,this.gridX - 1);
+        let y = ECUtils.clamp(Math.floor(m.y/this.gridSize.height),0,this.gridY - 1);
+        let x = ECUtils.clamp(Math.floor(m.x/this.gridSize.width),0,this.gridX - 1);
       
         return cc.v2(x,y);
     }
