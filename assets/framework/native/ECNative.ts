@@ -111,14 +111,14 @@ export default class ECNative
 
     static showUnityVideoAd(callback:any)
     {
-        Native.UnityVideoAdCallback = callback;
+        ECNative.UnityVideoAdCallback = callback;
         if(cc.sys.isMobile)
         {
             this.callNativeFunction("showUnityVideoAd");
         }
         else
         {
-            Native.UnityVideoAdCallback("completed");
+            ECNative.UnityVideoAdCallback("completed");
         }
     }
 
@@ -164,14 +164,14 @@ export default class ECNative
 
     static querySkuDetails(callback:any)
     {
-        Native.SkuDetailsResponse = callback;
+        ECNative.SkuDetailsResponse = callback;
         if(cc.sys.isMobile)
         {
             this.callNativeFunction("querySkuDetails");
         }
         else
         {
-            Native.SkuDetailsResponse("coin");
+            ECNative.SkuDetailsResponse("coin");
         }
     }
 
@@ -179,21 +179,21 @@ export default class ECNative
     {
         if(cc.sys.isMobile)
         {
-            this.callNativeFunction("launchBillingFlow",{android:"(Ljava/lang/String;)V",ios:""},sku);
+            this.callNativeFunction("launchBillingFlow",{android:"(Ljava/lang/String;)V",ios:":"},sku);
         }
         else
         {
-            Native.InAppPurchaseFinished("completed", sku);
+            ECNative.InAppPurchaseFinished("completed", sku);
         }
     }
 }
 
 window["onUnityVideoAdFinished"] = (result:string)=>
 {
-    if(Native.UnityVideoAdCallback)
+    if(ECNative.UnityVideoAdCallback)
     {
-        Native.UnityVideoAdCallback(result);
-        Native.UnityVideoAdCallback = null;
+        ECNative.UnityVideoAdCallback(result);
+        ECNative.UnityVideoAdCallback = null;
     }
     else
     {
@@ -203,9 +203,9 @@ window["onUnityVideoAdFinished"] = (result:string)=>
 
 window["onInAppPurchaseFinished"] = (result:string,sku:string)=>
 {
-    if(Native.InAppPurchaseFinished)
+    if(ECNative.InAppPurchaseFinished)
     {
-        Native.InAppPurchaseFinished(result,sku);
+        ECNative.InAppPurchaseFinished(result,sku);
     }
     else
     {
@@ -215,10 +215,10 @@ window["onInAppPurchaseFinished"] = (result:string,sku:string)=>
 
 window["onSkuDetailsResponse"] = (result:string)=>
 {
-    if(Native.SkuDetailsResponse)
+    if(ECNative.SkuDetailsResponse)
     {
-        Native.SkuDetailsResponse(result);
-        Native.SkuDetailsResponse = null;
+        ECNative.SkuDetailsResponse(result);
+        ECNative.SkuDetailsResponse = null;
     }
     else
     {

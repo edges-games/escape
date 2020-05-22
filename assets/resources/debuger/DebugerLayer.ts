@@ -5,6 +5,7 @@ import Native from "../../framework/native/ECNative";
 import ECLocalization from "../../framework/core/ECLocalization";
 import { ECStrings, ECEvents, ECFlagStatus, ECSaveKeys } from "../../framework/consts/ECConsts";
 import ECUIGroup from "../../framework/ui/ECUIGroup";
+import ECNative from "../../framework/native/ECNative";
 
 const {ccclass, property} = cc._decorator;
 
@@ -108,7 +109,6 @@ export default class DebugerLayer extends cc.Component {
          })
     }
 
-
     debugScene()
     {
         ECGameController.instance.clearSaveData([ECSaveKeys.EnableSound,ECSaveKeys.EnableMusic,ECSaveKeys.EnableVibration]);
@@ -122,5 +122,20 @@ export default class DebugerLayer extends cc.Component {
             ECUIGroup.instance.showHUD()});
             this.close();
             ECUIGroup.instance.hideSetting();
+    }
+
+    showAdmobBanner()
+    {
+        ECNative.showAdmobBanner();
+    }
+
+    hideAdmobBanner()
+    {
+        ECNative.hideAdmobBanner();
+    }
+
+    showAdmobInterstitial()
+    {
+        ECNative.showAdmobInterstitial();
     }
 }

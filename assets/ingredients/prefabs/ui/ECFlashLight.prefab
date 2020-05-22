@@ -82,7 +82,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "flashLight",
+    "_name": "FlashLight",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -165,7 +165,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "New Sprite",
+    "_name": "Board",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -272,7 +272,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "New Sprite",
+    "_name": "Board",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -379,7 +379,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "New Sprite",
+    "_name": "Board",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -486,7 +486,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "New Sprite",
+    "_name": "Board",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -593,7 +593,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "mask",
+    "_name": "Mask",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -756,13 +756,13 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "dark",
+    "_name": "Dark",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 22
@@ -833,7 +833,9 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": null,
+    "_spriteFrame": {
+      "__uuid__": "6d9bf3e7-b102-4435-8d5b-d0e650ea2682"
+    },
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -876,7 +878,6 @@
     "Mask": {
       "__id__": 15
     },
-    "switchSound": null,
     "_id": ""
   },
   {
