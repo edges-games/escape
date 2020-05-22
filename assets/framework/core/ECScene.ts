@@ -114,8 +114,8 @@ export default class ECScene extends cc.Component
 
         let currentPos = this.backgroundLayer.getPosition();
     
-        let moveOffsetY = Math.abs(this.lightOffset.y) < 10;
-        let moveOffsetX = Math.abs(this.lightOffset.x) < 10;
+        let moveOffsetY = ECGameController.instance.flashLight.node.active && Math.abs(this.lightOffset.y) < 10;
+        let moveOffsetX = ECGameController.instance.flashLight.node.active && Math.abs(this.lightOffset.x) < 10;
         if(!moveOffsetY)
         {
             this.lightOffset.y -= diff.y;
@@ -178,10 +178,18 @@ export default class ECScene extends cc.Component
         }
 
         let p = currentPos;
-        if(moveOffsetX)
-        p.x += diff.x;
-        if(moveOffsetY)
-        p.y += diff.y;
+        if(ECGameController.instance.flashLight.node.active)
+        {
+            if(moveOffsetX)
+            p.x += diff.x;
+            if(moveOffsetY)
+            p.y += diff.y;
+        }
+        else
+        {
+            p.x += diff.x;
+            p.y += diff.y;
+        }
 
         // Left
         if(p.x - (this.boundary.x) > 0)
