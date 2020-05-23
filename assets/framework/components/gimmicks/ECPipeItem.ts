@@ -1,6 +1,6 @@
 import ECPipeDetailEventData from "./ECPipeDetailEventData";
 
-const {ccclass, property} = cc._decorator;
+const {ccclass} = cc._decorator;
 
 export const PipeDetailEventItemTypes = cc.Enum(
 {
@@ -23,98 +23,94 @@ export const PipeDetailEventItemTypes = cc.Enum(
 });
 
 @ccclass
-export default class ECPipeItem extends cc.Component {
-    public  PipeType:number;
-    public  Datas;
+export default class ECPipeItem extends cc.Component 
+{
+    public type:number;
+    public sprite:cc.Sprite;
+    public detail:ECPipeDetailEventData;
+    public x:number;
+    public y:number;
+    public isLinked:boolean;
 
-    public  sprite:cc.Sprite;
-
-    public  PipeDetail:ECPipeDetailEventData;
-
-    public X:number;
-    public Y:number;
-
-
-    public Initialize()
+    public initialize()
     {
-        if(this.PipeType == PipeDetailEventItemTypes.Nothing)
+        if(this.type == PipeDetailEventItemTypes.Nothing)
         {
             this.sprite.node.active = false;
          
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.Block)
+        else if(this.type == PipeDetailEventItemTypes.Block)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[0];
+            this.sprite.spriteFrame = this.detail.blocks[0];
     
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.Start)
+        else if(this.type == PipeDetailEventItemTypes.Start)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[2];
+            this.sprite.spriteFrame = this.detail.blocks[2];
             
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.End)
+        else if(this.type == PipeDetailEventItemTypes.End)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[1];
+            this.sprite.spriteFrame = this.detail.blocks[1];
             this.node.angle = 180;
-            
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.UpDown)
+        else if(this.type == PipeDetailEventItemTypes.UpDown)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[3];
+            this.sprite.spriteFrame = this.detail.blocks[3];
             this.node.angle = 90;
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.LeftRight)
+        else if(this.type == PipeDetailEventItemTypes.LeftRight)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[3];
+            this.sprite.spriteFrame = this.detail.blocks[3];
             this.node.angle = 0;
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.RightDown)
+        else if(this.type == PipeDetailEventItemTypes.RightDown)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[5];
+            this.sprite.spriteFrame = this.detail.blocks[5];
             this.node.angle = 0;
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.DownLeft)
+        else if(this.type == PipeDetailEventItemTypes.DownLeft)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[5];
+            this.sprite.spriteFrame = this.detail.blocks[5];
             this.node.angle = 270;
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.LeftUp)
+        else if(this.type == PipeDetailEventItemTypes.LeftUp)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[5];
+            this.sprite.spriteFrame = this.detail.blocks[5];
             this.node.angle = 180;
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.UpRight)
+        else if(this.type == PipeDetailEventItemTypes.UpRight)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[5];
+            this.sprite.spriteFrame = this.detail.blocks[5];
             this.node.angle = 90;
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.LeftUpRight)
+        else if(this.type == PipeDetailEventItemTypes.LeftUpRight)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[7];
+            this.sprite.spriteFrame = this.detail.blocks[7];
             this.node.angle = 180;
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.UpRightDown)
+        else if(this.type == PipeDetailEventItemTypes.UpRightDown)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[7];
+            this.sprite.spriteFrame = this.detail.blocks[7];
             this.node.angle = 90;
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.RightDownLeft)
+        else if(this.type == PipeDetailEventItemTypes.RightDownLeft)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[7];
+            this.sprite.spriteFrame = this.detail.blocks[7];
 
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.DownLeftUp)
+        else if(this.type == PipeDetailEventItemTypes.DownLeftUp)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[7];
+            this.sprite.spriteFrame = this.detail.blocks[7];
             this.node.angle = 270;
         }
     }
 
-    public IsLinked:boolean;
+    
 
-    public  SetLinkFlag( linked)
+    public setLinkFlag( linked)
     {
-        this.IsLinked = linked;
+        this.isLinked = linked;
     }
 
     public  convert( b:number[]):number[]
@@ -128,117 +124,115 @@ export default class ECPipeItem extends cc.Component {
         return temp;  
     }
 
-    public  Rotate()
+    public rotate()
     {
-        if(this.PipeType == PipeDetailEventItemTypes.LeftRight)
+        if(this.type == PipeDetailEventItemTypes.LeftRight)
         {
-            this.PipeType = PipeDetailEventItemTypes.UpDown;
+            this.type = PipeDetailEventItemTypes.UpDown;
             this.node.angle = 90;
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.UpDown)
+        else if(this.type == PipeDetailEventItemTypes.UpDown)
         {
-            this.PipeType = PipeDetailEventItemTypes.LeftRight;
+            this.type = PipeDetailEventItemTypes.LeftRight;
             this.node.angle = 0;
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.UpRight)
+        else if(this.type == PipeDetailEventItemTypes.UpRight)
         {
-            this.PipeType = PipeDetailEventItemTypes.RightDown;
+            this.type = PipeDetailEventItemTypes.RightDown;
             this.node.angle = 0;
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.RightDown)
+        else if(this.type == PipeDetailEventItemTypes.RightDown)
         {
-            this.PipeType = PipeDetailEventItemTypes.DownLeft;
+            this.type = PipeDetailEventItemTypes.DownLeft;
             this.node.angle = 270;
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.DownLeft)
+        else if(this.type == PipeDetailEventItemTypes.DownLeft)
         {
-            this.PipeType = PipeDetailEventItemTypes.LeftUp;
+            this.type = PipeDetailEventItemTypes.LeftUp;
             this.node.angle = 180;
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.LeftUp)
+        else if(this.type == PipeDetailEventItemTypes.LeftUp)
         {
-            this.PipeType = PipeDetailEventItemTypes.UpRight;
+            this.type = PipeDetailEventItemTypes.UpRight;
             this.node.angle = 90;
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.LeftUpRight)
+        else if(this.type == PipeDetailEventItemTypes.LeftUpRight)
         {
-            this.PipeType = PipeDetailEventItemTypes.UpRightDown;
+            this.type = PipeDetailEventItemTypes.UpRightDown;
             this.node.angle = 90;
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.UpRightDown)
+        else if(this.type == PipeDetailEventItemTypes.UpRightDown)
         {
-            this.PipeType = PipeDetailEventItemTypes.RightDownLeft;
+            this.type = PipeDetailEventItemTypes.RightDownLeft;
             this.node.angle = 0;
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.RightDownLeft)
+        else if(this.type == PipeDetailEventItemTypes.RightDownLeft)
         {
-            this.PipeType = PipeDetailEventItemTypes.DownLeftUp;
+            this.type = PipeDetailEventItemTypes.DownLeftUp;
             this.node.angle = 270;
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.DownLeftUp)
+        else if(this.type == PipeDetailEventItemTypes.DownLeftUp)
         {
-            this.PipeType = PipeDetailEventItemTypes.LeftUpRight;
+            this.type = PipeDetailEventItemTypes.LeftUpRight;
             this.node.angle = 180;
         }
     }
 
-    public UpdateSprite()
+    public updateSprite()
     {
-        if(this.PipeType == PipeDetailEventItemTypes.Start)
+        if(this.type == PipeDetailEventItemTypes.Start)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[2];
+            this.sprite.spriteFrame = this.detail.blocks[2];
         }
-        else  if(this.PipeType == PipeDetailEventItemTypes.End)
+        else  if(this.type == PipeDetailEventItemTypes.End)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[this.IsLinked?2:1];
+            this.sprite.spriteFrame = this.detail.blocks[this.isLinked?2:1];
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.UpDown)
+        else if(this.type == PipeDetailEventItemTypes.UpDown)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[this.IsLinked?4:3];
+            this.sprite.spriteFrame = this.detail.blocks[this.isLinked?4:3];
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.LeftRight)
+        else if(this.type == PipeDetailEventItemTypes.LeftRight)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[this.IsLinked?4:3];
+            this.sprite.spriteFrame = this.detail.blocks[this.isLinked?4:3];
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.RightDown)
+        else if(this.type == PipeDetailEventItemTypes.RightDown)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[this.IsLinked?6:5];
+            this.sprite.spriteFrame = this.detail.blocks[this.isLinked?6:5];
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.DownLeft)
+        else if(this.type == PipeDetailEventItemTypes.DownLeft)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[this.IsLinked?6:5];
+            this.sprite.spriteFrame = this.detail.blocks[this.isLinked?6:5];
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.LeftUp)
+        else if(this.type == PipeDetailEventItemTypes.LeftUp)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[this.IsLinked?6:5];
+            this.sprite.spriteFrame = this.detail.blocks[this.isLinked?6:5];
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.UpRight)
+        else if(this.type == PipeDetailEventItemTypes.UpRight)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[this.IsLinked?6:5];
+            this.sprite.spriteFrame = this.detail.blocks[this.isLinked?6:5];
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.LeftUpRight)
+        else if(this.type == PipeDetailEventItemTypes.LeftUpRight)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[this.IsLinked?8:7];
+            this.sprite.spriteFrame = this.detail.blocks[this.isLinked?8:7];
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.UpRightDown)
+        else if(this.type == PipeDetailEventItemTypes.UpRightDown)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[this.IsLinked?8:7];
+            this.sprite.spriteFrame = this.detail.blocks[this.isLinked?8:7];
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.RightDownLeft)
+        else if(this.type == PipeDetailEventItemTypes.RightDownLeft)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[this.IsLinked?8:7];
+            this.sprite.spriteFrame = this.detail.blocks[this.isLinked?8:7];
         }
-        else if(this.PipeType == PipeDetailEventItemTypes.DownLeftUp)
+        else if(this.type == PipeDetailEventItemTypes.DownLeftUp)
         {
-            this.sprite.spriteFrame = this.PipeDetail.blocks[this.IsLinked?8:7];
+            this.sprite.spriteFrame = this.detail.blocks[this.isLinked?8:7];
         }
     }
 
-    public  RotateTo(type:number)
+    public  rotateTo(type:number)
     {
-        this.Rotate();
-        this.PipeDetail.LinkItems();
+        this.rotate();
+        this.detail.linkItems();
     }
-
-
 }

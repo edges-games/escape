@@ -48,6 +48,8 @@ export default class ECGameController extends cc.Component
     {
         ECGameController.instance = this;
         cc.director.getCollisionManager().enabled = true;
+        cc.macro.ENABLE_MULTI_TOUCH = false;
+        
         this.globleEventParent.destroyAllChildren();
         this.lightEventParent.destroyAllChildren();
         this.gameScene.destroyAllChildren();

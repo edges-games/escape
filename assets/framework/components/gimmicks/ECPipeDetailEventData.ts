@@ -6,71 +6,70 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class ECPipeDetailEventData extends ECDetailEventData {
 
-    @property(cc.Node)  ItemParent:cc.Node;
+    @property({multiline: true}) question:string = "";
     @property({type:[cc.SpriteFrame]}) blocks:cc.SpriteFrame[] = [];
-    public  GridX:number = 8;
-    public  GridY:number = 8;
-    public  Space:number = 0;
-    public  StartX:number = 0;
-    public  StartY:number = 0;
-    public  GridSize:number = 50;
-    public  IsCompleted:boolean = false;
+    @property(cc.Node) itemParent:cc.Node = null;
+    
+    private  gridX:number = 8;
+    private  gridY:number = 8;
+    private  space:number = 0;
+    private  startX:number = 0;
+    private  startY:number = 0;
+    private  gridSize:number = 50;
 
-    public  StartItem:ECPipeItem;
-    public  items:ECPipeItem[];
-
-    private  Datas:number[];
+    private  startItem:ECPipeItem;
+    private  items:ECPipeItem[];
+    
+    private  questionData:number[];
 
     onInitialize()
     {
         this.node.on(cc.Node.EventType.TOUCH_START,this.onTouchStart,this);
-        this.StartItem = null;
-        this.StartX = (this.GridSize * this.GridX + this.Space * (this.GridX -1)) /-2 + this.GridSize /2;
-        this.StartY = (this.GridSize * this.GridY + this.Space * (this.GridY -1)) /-2 + this.GridSize /2;
+        this.startItem = null;
+        this.startX = (this.gridSize * this.gridX + this.space * (this.gridX -1)) /-2 + this.gridSize /2;
+        this.startY = (this.gridSize * this.gridY + this.space * (this.gridY -1)) /-2 + this.gridSize /2;
         this.items = [];
-        this.Datas = this.Stage;
+        this.questionData = this.question.replace(/\n/g,"").split(",").map((s)=>parseInt(s));
 
-
-        for(let y = 0; y < this.GridY; y++)
+        for(let y = 0; y < this.gridY; y++)
         {
-            for(let x = 0; x < this.GridX; x++)
+            for(let x = 0; x < this.gridX; x++)
             {
                 let pipeItem:ECPipeItem = new cc.Node().addComponent(ECPipeItem);
-                pipeItem.X = x;
-                pipeItem.Y = y;
+                pipeItem.x = x;
+                pipeItem.y = y;
                 pipeItem.sprite = new cc.Node().addComponent(cc.Sprite);
                 pipeItem.node.addChild(pipeItem.sprite.node);
-                pipeItem.PipeDetail = this;
-                this.ItemParent.addChild(pipeItem.node);
+                pipeItem.detail = this;
+                this.itemParent.addChild(pipeItem.node);
              
-                pipeItem.PipeType = this.Datas[this.GridX * y + x];
-                if(pipeItem.PipeType == PipeDetailEventItemTypes.End)
+                pipeItem.type = this.questionData[this.gridX * y + x];
+                if(pipeItem.type == PipeDetailEventItemTypes.End)
                 {
                     if(y == 0)
                     {
                         pipeItem.sprite.node.angle = 90;
                     }
-                    else if(y == this.GridY - 1)
+                    else if(y == this.gridY - 1)
                     {
                         pipeItem.sprite.node.angle = 270
                     }
                 }
-                pipeItem.node.setPosition(cc.v2((x * this.GridSize) + this.StartX,-(y * this.GridSize) - this.StartY));
+                pipeItem.node.setPosition(cc.v2((x * this.gridSize) + this.startX,-(y * this.gridSize) - this.startY));
                 this.items.push(pipeItem);
 
-                if(pipeItem.PipeType == PipeDetailEventItemTypes.Start)
+                if(pipeItem.type == PipeDetailEventItemTypes.Start)
                 {
-                    this.StartItem = pipeItem;
+                    this.startItem = pipeItem;
                 }
 
-                pipeItem.Initialize();
+                pipeItem.initialize();
             }
         }
 
-        this.LinkItems();
+        this.linkItems();
     }
 
-       
     onDestroy()
     {
         this.node.off(cc.Node.EventType.TOUCH_START,this.onTouchStart,this);
@@ -97,20 +96,19 @@ export default class ECPipeDetailEventData extends ECDetailEventData {
 		}
     }
 
-    public  LinkItems()
+    public linkItems()
     {
         for(let i=0;i<this.items.length;i++)
         {
-            this.items[i].SetLinkFlag(false);
+            this.items[i].setLinkFlag(false);
         }
             
-        this.FindLinkItem(this.StartItem,[]);
+        this.FindLinkItem(this.startItem,[]);
 
         for(let i=0;i<this.items.length;i++)
         {
-            this.items[i].UpdateSprite();
+            this.items[i].updateSprite();
         }
-
     }
 
     public  FindLinkItem( item:ECPipeItem,  checkeditems:ECPipeItem[])
@@ -122,150 +120,139 @@ export default class ECPipeDetailEventData extends ECDetailEventData {
 
         checkeditems.push(item);
 
-        if(item.PipeType == PipeDetailEventItemTypes.Start ||
-            item.PipeType == PipeDetailEventItemTypes.LeftRight ||
-            item.PipeType == PipeDetailEventItemTypes.RightDown ||
-            item.PipeType == PipeDetailEventItemTypes.UpRight ||
-            item.PipeType == PipeDetailEventItemTypes.UpRightDown ||
-            item.PipeType == PipeDetailEventItemTypes.RightDownLeft ||
-            item.PipeType == PipeDetailEventItemTypes.LeftUpRight
+        if(item.type == PipeDetailEventItemTypes.Start ||
+            item.type == PipeDetailEventItemTypes.LeftRight ||
+            item.type == PipeDetailEventItemTypes.RightDown ||
+            item.type == PipeDetailEventItemTypes.UpRight ||
+            item.type == PipeDetailEventItemTypes.UpRightDown ||
+            item.type == PipeDetailEventItemTypes.RightDownLeft ||
+            item.type == PipeDetailEventItemTypes.LeftUpRight
         )
         {
-            if(this.IsValid(item.X + 1 ,item.Y))
+            if(this.isValidItem(item.x + 1 ,item.y))
             {
-                let pipeItem:ECPipeItem = this.items[item.Y * this.GridX + item.X + 1];
+                let pipeItem:ECPipeItem = this.items[item.y * this.gridX + item.x + 1];
 
-                if(pipeItem.PipeType == PipeDetailEventItemTypes.End || 
-                    pipeItem.PipeType == PipeDetailEventItemTypes.LeftUp || 
-                    pipeItem.PipeType == PipeDetailEventItemTypes.LeftRight ||
-                    pipeItem.PipeType == PipeDetailEventItemTypes.DownLeft ||
-                    pipeItem.PipeType == PipeDetailEventItemTypes.LeftUpRight ||
-                    pipeItem.PipeType == PipeDetailEventItemTypes.RightDownLeft ||
-                    pipeItem.PipeType == PipeDetailEventItemTypes.DownLeftUp
+                if(pipeItem.type == PipeDetailEventItemTypes.End || 
+                    pipeItem.type == PipeDetailEventItemTypes.LeftUp || 
+                    pipeItem.type == PipeDetailEventItemTypes.LeftRight ||
+                    pipeItem.type == PipeDetailEventItemTypes.DownLeft ||
+                    pipeItem.type == PipeDetailEventItemTypes.LeftUpRight ||
+                    pipeItem.type == PipeDetailEventItemTypes.RightDownLeft ||
+                    pipeItem.type == PipeDetailEventItemTypes.DownLeftUp
                 )
                 {
-                    pipeItem.SetLinkFlag(true);
+                    pipeItem.setLinkFlag(true);
                     this.FindLinkItem(pipeItem,checkeditems);
                 }
             }
         }
 
-
-        if(item.PipeType == PipeDetailEventItemTypes.UpDown || 
-            item.PipeType == PipeDetailEventItemTypes.DownLeft || 
-            item.PipeType == PipeDetailEventItemTypes.RightDown ||
+        if(item.type == PipeDetailEventItemTypes.UpDown || 
+            item.type == PipeDetailEventItemTypes.DownLeft || 
+            item.type == PipeDetailEventItemTypes.RightDown ||
         
-            item.PipeType == PipeDetailEventItemTypes.UpRightDown ||
-            item.PipeType == PipeDetailEventItemTypes.RightDownLeft ||
-            item.PipeType == PipeDetailEventItemTypes.DownLeftUp
+            item.type == PipeDetailEventItemTypes.UpRightDown ||
+            item.type == PipeDetailEventItemTypes.RightDownLeft ||
+            item.type == PipeDetailEventItemTypes.DownLeftUp
         
         
         )
         {
-            if(this.IsValid(item.X ,item.Y + 1))
+            if(this.isValidItem(item.x ,item.y + 1))
             {
-                let pipeItem:ECPipeItem = this.items[(item.Y + 1) * this.GridX + item.X];
+                let pipeItem:ECPipeItem = this.items[(item.y + 1) * this.gridX + item.x];
 
-                if(pipeItem.PipeType == PipeDetailEventItemTypes.End || 
-                    pipeItem.PipeType == PipeDetailEventItemTypes.UpDown || 
-                    pipeItem.PipeType == PipeDetailEventItemTypes.UpRight || 
-                    pipeItem.PipeType == PipeDetailEventItemTypes.LeftUp ||
+                if(pipeItem.type == PipeDetailEventItemTypes.End || 
+                    pipeItem.type == PipeDetailEventItemTypes.UpDown || 
+                    pipeItem.type == PipeDetailEventItemTypes.UpRight || 
+                    pipeItem.type == PipeDetailEventItemTypes.LeftUp ||
                 
-                    pipeItem.PipeType == PipeDetailEventItemTypes.DownLeftUp ||
-                    pipeItem.PipeType == PipeDetailEventItemTypes.LeftUpRight ||
-                    pipeItem.PipeType == PipeDetailEventItemTypes.UpRightDown
+                    pipeItem.type == PipeDetailEventItemTypes.DownLeftUp ||
+                    pipeItem.type == PipeDetailEventItemTypes.LeftUpRight ||
+                    pipeItem.type == PipeDetailEventItemTypes.UpRightDown
                 )
                 {
-                    pipeItem.SetLinkFlag(true);
+                    pipeItem.setLinkFlag(true);
                     this.FindLinkItem(pipeItem,checkeditems);
                 }
             }
         }
 
-
-        if(item.PipeType == PipeDetailEventItemTypes.DownLeft || 
-            item.PipeType == PipeDetailEventItemTypes.LeftUp || 
-            item.PipeType == PipeDetailEventItemTypes.LeftRight || 
-            item.PipeType == PipeDetailEventItemTypes.RightDownLeft || 
-            item.PipeType == PipeDetailEventItemTypes.DownLeftUp || 
-            item.PipeType == PipeDetailEventItemTypes.LeftUpRight 
+        if(item.type == PipeDetailEventItemTypes.DownLeft || 
+            item.type == PipeDetailEventItemTypes.LeftUp || 
+            item.type == PipeDetailEventItemTypes.LeftRight || 
+            item.type == PipeDetailEventItemTypes.RightDownLeft || 
+            item.type == PipeDetailEventItemTypes.DownLeftUp || 
+            item.type == PipeDetailEventItemTypes.LeftUpRight 
         )
         {
-            if(this.IsValid(item.X - 1,item.Y))
+            if(this.isValidItem(item.x - 1,item.y))
             {
-                let pipeItem:ECPipeItem = this.items[item.Y * this.GridX + item.X - 1];
+                let pipeItem:ECPipeItem = this.items[item.y * this.gridX + item.x - 1];
 
-                if(pipeItem.PipeType == PipeDetailEventItemTypes.End || 
-                    pipeItem.PipeType == PipeDetailEventItemTypes.RightDown || 
-                    pipeItem.PipeType == PipeDetailEventItemTypes.UpRight || 
-                    pipeItem.PipeType == PipeDetailEventItemTypes.LeftRight || 
+                if(pipeItem.type == PipeDetailEventItemTypes.End || 
+                    pipeItem.type == PipeDetailEventItemTypes.RightDown || 
+                    pipeItem.type == PipeDetailEventItemTypes.UpRight || 
+                    pipeItem.type == PipeDetailEventItemTypes.LeftRight || 
                 
-                    pipeItem.PipeType == PipeDetailEventItemTypes.LeftUpRight || 
-                    pipeItem.PipeType == PipeDetailEventItemTypes.UpRightDown || 
-                    pipeItem.PipeType == PipeDetailEventItemTypes.RightDownLeft 
+                    pipeItem.type == PipeDetailEventItemTypes.LeftUpRight || 
+                    pipeItem.type == PipeDetailEventItemTypes.UpRightDown || 
+                    pipeItem.type == PipeDetailEventItemTypes.RightDownLeft 
                 )
                 {
-                    pipeItem.SetLinkFlag(true);
+                    pipeItem.setLinkFlag(true);
                     this.FindLinkItem(pipeItem,checkeditems);
                 }
             }
         }
 
-
-        if(item.PipeType == PipeDetailEventItemTypes.UpDown || 
-            item.PipeType == PipeDetailEventItemTypes.LeftUp || 
-            item.PipeType == PipeDetailEventItemTypes.UpRight || 
-            item.PipeType == PipeDetailEventItemTypes.DownLeftUp || 
-            item.PipeType == PipeDetailEventItemTypes.LeftUpRight || 
-            item.PipeType == PipeDetailEventItemTypes.UpRightDown
+        if(item.type == PipeDetailEventItemTypes.UpDown || 
+            item.type == PipeDetailEventItemTypes.LeftUp || 
+            item.type == PipeDetailEventItemTypes.UpRight || 
+            item.type == PipeDetailEventItemTypes.DownLeftUp || 
+            item.type == PipeDetailEventItemTypes.LeftUpRight || 
+            item.type == PipeDetailEventItemTypes.UpRightDown
         )
         {
-            if(this.IsValid(item.X,item.Y - 1))
+            if(this.isValidItem(item.x,item.y - 1))
             {
-                let pipeItem:ECPipeItem = this.items[(item.Y - 1) * this.GridX + item.X];
+                let pipeItem:ECPipeItem = this.items[(item.y - 1) * this.gridX + item.x];
 
-                if(pipeItem.PipeType == PipeDetailEventItemTypes.End || 
-                    pipeItem.PipeType == PipeDetailEventItemTypes.DownLeft || 
-                    pipeItem.PipeType == PipeDetailEventItemTypes.RightDown || 
-                    pipeItem.PipeType == PipeDetailEventItemTypes.UpDown || 
-                    pipeItem.PipeType == PipeDetailEventItemTypes.UpRightDown || 
-                    pipeItem.PipeType == PipeDetailEventItemTypes.RightDownLeft || 
-                    pipeItem.PipeType == PipeDetailEventItemTypes.DownLeftUp
+                if(pipeItem.type == PipeDetailEventItemTypes.End || 
+                    pipeItem.type == PipeDetailEventItemTypes.DownLeft || 
+                    pipeItem.type == PipeDetailEventItemTypes.RightDown || 
+                    pipeItem.type == PipeDetailEventItemTypes.UpDown || 
+                    pipeItem.type == PipeDetailEventItemTypes.UpRightDown || 
+                    pipeItem.type == PipeDetailEventItemTypes.RightDownLeft || 
+                    pipeItem.type == PipeDetailEventItemTypes.DownLeftUp
                 )
                 {
-                    pipeItem.SetLinkFlag(true);
+                    pipeItem.setLinkFlag(true);
                     this.FindLinkItem(pipeItem,checkeditems);
                 }
             }
         }
     }
 
-    public  IsValid( x, y)
+    isValidItem( x, y)
     {
-        return x >= 0 && x < this.GridX && y >= 0 && y < this.GridY;
+        return x >= 0 && x < this.gridX && y >= 0 && y < this.gridY;
     }
 
     public  Rotate( item:ECPipeItem)
     {
-        if(this.IsCompleted)
+        item.rotate();
+        this.linkItems();
+
+        for(let y = 0; y < this.gridY; y++)
         {
-   
-            return;
-        }
-
-        item.Rotate();
-
-        this.LinkItems();
-
-        for(let y = 0; y < this.GridY; y++)
-        {
-            for(let x = 0; x < this.GridX; x++)
+            for(let x = 0; x < this.gridX; x++)
             {
-                let pipeItem:ECPipeItem = this.items[y * this.GridX + x];
-                this.Datas[y * this.GridX + x] = pipeItem.PipeType;
+                let pipeItem:ECPipeItem = this.items[y * this.gridX + x];
+                this.questionData[y * this.gridX + x] = pipeItem.type;
             }
         }
-
 
         this.Check();
         if(this.isCompleted)
@@ -274,30 +261,31 @@ export default class ECPipeDetailEventData extends ECDetailEventData {
         }
     }
 
-
-
     public  Check()
     {
-        if (this.items[3].IsLinked && this.items[15].IsLinked &&
-            this.items[23].IsLinked && this.items[47].IsLinked &&
-            this.items[57].IsLinked && this.items[62].IsLinked)
+
+        let terminations:ECPipeItem[] = [];
+        for(let i=0; i<this.items.length; i++)
+        {
+            if(this.items[i].type == PipeDetailEventItemTypes.End)
+            {
+                terminations.push(this.items[i]);
+            }
+        }
+
+        let allRight:boolean = true;
+        for(let i=0; i<terminations.length; i++)
+        {
+            if(!terminations[i].isLinked)
+            {
+                allRight = false;
+                break;
+            }
+        }
+
+        if (allRight)
         {
             this.isCompleted = true;
         }
     }
-
-
-
-    private Stage:number[] = 
-    [
-        0, 0, 0, 3, 0, 0, 0, 0,
-        2, 6, 7, 6, 8, 6, 8, 3,
-        0, 4, 4, 5, 4, 6, 13, 3,
-        0, 7, 10, 7, 11, 1, 13, 0,
-        0, 1, 5, 12, 8, 1, 6, 0,
-        0, 1, 11, 11, 9, 13, 6, 3,
-        0, 8, 7, 6, 7, 6, 11, 0,
-        0, 3, 0, 0, 0, 0, 3, 0
-    ];
-
 }
