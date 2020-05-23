@@ -1,22 +1,23 @@
 import ECDetailEventData from "./ECDetailEventData";
 import ECGameController from "../../core/ECGameController";
-import ECRouteDetailCell from "./ECRouteDetailCell";
+import ECRouteItem from "./ECRouteItem";
 
 const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class ECRouteDetailEventData extends ECDetailEventData
 {
-    @property(cc.Node) cellParent:cc.Node = null;
+    @property(cc.Node) itemParent:cc.Node = null;
     @property(cc.Integer) space:number = 0;
-    @property({multiline: true, displayName:"Matrix"}) data:string = "";
+    @property({multiline: true}) question:string = "";
     @property({multiline: true}) answer:string = "";
-    @property(cc.Prefab) cellPrefab:cc.Prefab = null;
     @property({type:cc.AudioClip}) clickSound:cc.AudioClip = null;
+    @property({type:[cc.SpriteFrame]}) blocks:cc.SpriteFrame[] = [];
+
     private answerMatrix:number[][] = [[]];
-    private matrix:ECRouteDetailCell[][] = [[]];
+    private matrix:ECRouteItem[][] = [[]];
     private canMove:boolean = false;
-    private route:ECRouteDetailCell[] = [];
+    private route:ECRouteItem[] = [];
 
     onInitialize()
     {
@@ -27,7 +28,7 @@ export default class ECRouteDetailEventData extends ECDetailEventData
         this.node.on(cc.Node.EventType.TOUCH_END,this.onTouchEnd,this);
         this.node.on(cc.Node.EventType.TOUCH_CANCEL,this.onTouchEnd,this);
 
-        let rows = this.data.split("\n");
+        let rows = this.question.split("\n");
         let answerRows = this.answer.split("\n");
         for(let r = 0; r < rows.length; r++)
         {
@@ -37,11 +38,14 @@ export default class ECRouteDetailEventData extends ECDetailEventData
             this.answerMatrix[r] = [];
             for(let c = 0; c < cols.length; c++)
             {
-                let cell:ECRouteDetailCell = cc.instantiate(this.cellPrefab).getComponent(ECRouteDetailCell);
+                let cell:ECRouteItem = new cc.Node().addComponent(ECRouteItem);
+                cell.sprite = new cc.Node().addComponent(cc.Sprite);
+                cell.node.setContentSize(47,47);
+                cell.node.addChild(cell.sprite.node);
                 this.matrix[r][c] = cell;
                 this.answerMatrix[r][c] = parseInt(answerCols[c]);
                 cell.value = parseInt(cols[c]);
-                this.cellParent.addChild(cell.node);
+                this.itemParent.addChild(cell.node);
                 cell.x = c;
                 cell.y = r;
                 cell.node.position = new cc.Vec3(c * (cell.node.width + this.space), r * (-cell.node.height - this.space));
@@ -58,7 +62,7 @@ export default class ECRouteDetailEventData extends ECDetailEventData
         this.node.off(cc.Node.EventType.TOUCH_CANCEL,this.onTouchEnd,this);
     }
 
-    protected setCellStatus(cell:ECRouteDetailCell)
+    protected setCellStatus(cell:ECRouteItem)
     {
         if(cell.value == 2)
         {
@@ -67,7 +71,7 @@ export default class ECRouteDetailEventData extends ECDetailEventData
         else if(cell.value == 1)
         {
             cell.node.opacity = 255;
-            cell.sprite.spriteFrame = cell.off;
+            cell.sprite.spriteFrame = this.blocks[1];
         }
         else if(cell.value == 0)
         {
@@ -79,13 +83,13 @@ export default class ECRouteDetailEventData extends ECDetailEventData
     {
         this.route = [];
         this.canMove = false;
-        let point:cc.Vec2 = this.cellParent.convertToNodeSpaceAR(touch.getLocation());
-        let currentCell:ECRouteDetailCell = null;
+        let point:cc.Vec2 = this.itemParent.convertToNodeSpaceAR(touch.getLocation());
+        let currentCell:ECRouteItem = null;
         for(let r = 0; r < this.matrix.length; r++)
         {
             for(let c = 0; c < this.matrix[0].length; c++)
             {
-                let cell:ECRouteDetailCell = this.matrix[r][c];
+                let cell:ECRouteItem = this.matrix[r][c];
                 if(point.x > (cell.node.x - cell.node.width / 2) && point.x < (cell.node.x + cell.node.width / 2) &&
                    point.y > (cell.node.y - cell.node.height / 2) && point.y < (cell.node.y + cell.node.height / 2))
                 {
@@ -106,18 +110,18 @@ export default class ECRouteDetailEventData extends ECDetailEventData
         if(this.isCompleted) return;
         if(!this.canMove) return;
 
-        let point:cc.Vec2 = this.cellParent.convertToNodeSpaceAR(touch.getLocation());
+        let point:cc.Vec2 = this.itemParent.convertToNodeSpaceAR(touch.getLocation());
         
         for(let r = 0; r < this.matrix.length; r++)
         {
             for(let c = 0; c < this.matrix[0].length; c++)
             {
-                let cell:ECRouteDetailCell = this.matrix[r][c];
+                let cell:ECRouteItem = this.matrix[r][c];
 
                 if(point.x > (cell.node.x - cell.node.width / 2) && point.x < (cell.node.x + cell.node.width / 2) &&
                    point.y > (cell.node.y - cell.node.height / 2) && point.y < (cell.node.y + cell.node.height / 2) && cell.value != 2)
                 {
-                    let lastCell:ECRouteDetailCell = this.route[this.route.length - 1];
+                    let lastCell:ECRouteItem = this.route[this.route.length - 1];
                     
                     if(!lastCell)
                     {
@@ -171,16 +175,16 @@ export default class ECRouteDetailEventData extends ECDetailEventData
 
         for(let r=0; r < this.route.length; r++)
         {
-            let cell:ECRouteDetailCell = this.route[r];
+            let cell:ECRouteItem = this.route[r];
             if(r + 1 == this.route.length)
             {
                 cell.node.opacity = 255;
-                cell.sprite.spriteFrame = cell.off;
+                cell.sprite.spriteFrame = this.blocks[1];
             }
             else
             {
                 cell.node.opacity = 255;
-                cell.sprite.spriteFrame = cell.on;
+                cell.sprite.spriteFrame = this.blocks[0];
             }
         }
     }
@@ -214,7 +218,7 @@ export default class ECRouteDetailEventData extends ECDetailEventData
         {
             for(let c = 0; c < this.matrix[0].length; c++)
             {
-                let cell:ECRouteDetailCell = this.matrix[r][c];
+                let cell:ECRouteItem = this.matrix[r][c];
                 let has:boolean = false;
                 for(let i=0; i < this.route.length; i++)
                 {
@@ -243,7 +247,7 @@ export default class ECRouteDetailEventData extends ECDetailEventData
         {
             for(let c = 0; c < this.matrix[0].length; c++)
             {
-                let cell:ECRouteDetailCell = this.matrix[r][c];
+                let cell:ECRouteItem = this.matrix[r][c];
                 if(cell.value == 2)
                 {
                     continue;
