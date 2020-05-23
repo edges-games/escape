@@ -8,6 +8,7 @@ const {ccclass, property} = cc._decorator;
 export default class ECRouteDetailEventData extends ECDetailEventData
 {
     @property(cc.Node) itemParent:cc.Node = null;
+    @property(cc.Integer) girdSize:number = 50;
     @property(cc.Integer) space:number = 0;
     @property({multiline: true}) question:string = "";
     @property({multiline: true}) answer:string = "";
@@ -40,7 +41,7 @@ export default class ECRouteDetailEventData extends ECDetailEventData
             {
                 let cell:ECRouteItem = new cc.Node().addComponent(ECRouteItem);
                 cell.sprite = new cc.Node().addComponent(cc.Sprite);
-                cell.node.setContentSize(47,47);
+                cell.node.setContentSize(this.girdSize,this.girdSize);
                 cell.node.addChild(cell.sprite.node);
                 this.matrix[r][c] = cell;
                 this.answerMatrix[r][c] = parseInt(answerCols[c]);

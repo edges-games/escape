@@ -276,9 +276,10 @@
     "itemParent": {
       "__id__": 3
     },
+    "girdSize": 47,
     "space": 5,
     "question": "00000\n00000\n00000\n10000\n00000",
-    "answer": "11111\n10011\n11111\n11111\n01011",
+    "answer": "11111\n12211\n11111\n11111\n21211",
     "clickSound": null,
     "blocks": [
       {
