@@ -4,14 +4,14 @@ import ECDetailEventData from "./ECDetailEventData";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class ECPuzzleDetailEventData extends ECDetailEventData {
-
+export default class ECPuzzleDetailEventData extends ECDetailEventData 
+{
+	@property({multiline: true}) question:string = "";
+	@property({multiline: true}) answer:string = "";
+	@property(cc.Node)  itemParent:cc.Node = null;
 	@property gridX:number = 4;
 	@property gridY:number = 4;
 	@property(cc.Vec2) gridSize:cc.Vec2 = cc.v2(60,60);
-	@property(cc.Node)  itemParent:cc.Node = null;
-	@property({multiline: true}) question:string = "";
-	@property({multiline: true}) answer:string = "";
 	@property({type:[cc.SpriteFrame]}) blocks:cc.SpriteFrame[] = [];
 
 	private items:ECPuzzleItem[];
@@ -24,8 +24,8 @@ export default class ECPuzzleDetailEventData extends ECDetailEventData {
 	onInitialize()
 	{
         this.node.on(cc.Node.EventType.TOUCH_START,this.onTouchStart,this);
-		this.answerData = this.answer.split(",").map((x)=>parseInt(x));
-		this.questionData = this.question.split(",").map((x)=>parseInt(x));
+		this.answerData = this.answer.replace(/\n|\s/g,"").split(",").map((x)=>parseInt(x));
+		this.questionData = this.question.replace(/\n|\s/g,"").split(",").map((x)=>parseInt(x));
 		
         this.createMatrix();
 	}
