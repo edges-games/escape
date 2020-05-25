@@ -91,17 +91,17 @@ export default class ECNative
 
     static vibrate(milliseconds:number)
     {
-        this.callNativeFunction("vibrate",{android:"(I)V",ios:""}, milliseconds);
+        this.callNativeFunction("vibrate",{android:"(I)V",ios:":"}, milliseconds);
     }
 
     static goReview(title: string, content: string)
     {
-        this.callNativeFunction("goReview",{android:"(Ljava/lang/String;Ljava/lang/String;)V",ios:""},title ,content);
+        this.callNativeFunction("goReview",{android:"(Ljava/lang/String;Ljava/lang/String;)V",ios:":content"},title ,content);
     }
 
     static shareImage(title: string, content: string, imageUrl:string)
     {
-        this.callNativeFunction("shareImage",{android:"(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",ios:""},title,content,imageUrl);
+        this.callNativeFunction("shareImage",{android:"(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",ios:":content:imageUrl"},title,content,imageUrl);
     }
 
     static shareMessage(title: string, content: string)
@@ -159,7 +159,7 @@ export default class ECNative
 
     static requestNotification(seconds:number, title:string, content:string)
     {
-        this.callNativeFunction("requestNotification",{android:"(ILjava/lang/String;Ljava/lang/String;)V",ios:""},seconds,title,content);
+        this.callNativeFunction("requestNotification",{android:"(ILjava/lang/String;Ljava/lang/String;)V",ios:":title:content"},seconds,title,content);
     }
 
     static querySkuDetails(callback:any)
