@@ -54,6 +54,24 @@ export default class ECLocalStorage
         return cc.sys.localStorage.getItem(item);
     }
 
+    public static getIntgerItem(item:string):number
+    {
+        let value = cc.sys.localStorage.getItem(item);
+        return value == null? 0.0 : parseInt(value);
+    }
+
+    public static getFloatItem(item:string):number
+    {
+        let value = cc.sys.localStorage.getItem(item);
+        return value == null? 0.0 : parseFloat(value);
+    }
+
+    public static getBooleanItem(item:string, defaultValue:boolean = false):boolean
+    {
+        let value = cc.sys.localStorage.getItem(item);
+        return value == null? defaultValue : value == "true";
+    }
+
     public static save()
     {
         for (const [key, value] of Object.entries(ECLocalStorage.cache)) {
