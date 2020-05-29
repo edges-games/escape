@@ -121,71 +121,73 @@ export default class ECScene extends cc.Component
 
         let currentPos = this.backgroundLayer.getPosition();
     
-        let moveOffsetY = ECGameController.instance.flashLight.Light.active && Math.abs(this.lightOffset.y) < 10;
-        let moveOffsetX = ECGameController.instance.flashLight.Light.active && Math.abs(this.lightOffset.x) < 10;
-        if(!moveOffsetY)
+        let moveOffsetY = Math.abs(this.lightOffset.y) < 10;
+        let moveOffsetX = Math.abs(this.lightOffset.x) < 10;
+        if(ECGameController.instance.flashLight.Light.activeInHierarchy)
         {
-            this.lightOffset.y -= diff.y;
-            if(this.lightOffset.y > this.halfWinSize.height - 100)
+            if(!moveOffsetY)
             {
-                if(currentPos.y > 0)
+                this.lightOffset.y -= diff.y;
+                if(this.lightOffset.y > this.halfWinSize.height - 100)
                 {
-                    this.lightOffset.y = 0;
-                    moveOffsetY = true;
+                    if(currentPos.y > 0)
+                    {
+                        this.lightOffset.y = 0;
+                        moveOffsetY = true;
+                    }
+                    else
+                    {
+                        this.lightOffset.y = this.halfWinSize.height - 100;
+                    }
                 }
-                else
+        
+                if(this.lightOffset.y < -this.halfWinSize.height + 100)
                 {
-                    this.lightOffset.y = this.halfWinSize.height - 100;
+                    if(currentPos.y < 0)
+                    {    
+                        this.lightOffset.y = 0;
+                        moveOffsetY = true;
+                    }
+                    else
+                    {
+                        this.lightOffset.y = -this.halfWinSize.height + 100;
+                    }
                 }
+                ECGameController.instance.flashLight.node.setPosition(this.lightOffset);
             }
-    
-            if(this.lightOffset.y < -this.halfWinSize.height + 100)
+            if(!moveOffsetX)
             {
-                if(currentPos.y < 0)
-                {    
-                    this.lightOffset.y = 0;
-                    moveOffsetY = true;
-                }
-                else
+                this.lightOffset.x -= diff.x; 
+                if(this.lightOffset.x - diff.x > this.halfWinSize.width - 100)
                 {
-                    this.lightOffset.y = -this.halfWinSize.height + 100;
+                    if(currentPos.x > 0)
+                    {
+                        this.lightOffset.x = 0;
+                        moveOffsetX = true;
+                    }
+                    else
+                    {
+                        this.lightOffset.x = this.halfWinSize.width - 100;
+                    }
                 }
+        
+                if(this.lightOffset.x - diff.x < -this.halfWinSize.width + 100)
+                {
+                    if(currentPos.x < 0)
+                    {    
+                        this.lightOffset.x = 0;
+                        moveOffsetX = true;
+                    }
+                    else
+                    {
+                        this.lightOffset.x = -this.halfWinSize.width + 100;
+                    }
+                }
+                ECGameController.instance.flashLight.node.setPosition(this.lightOffset);
             }
-            ECGameController.instance.flashLight.node.setPosition(this.lightOffset);
         }
-        if(!moveOffsetX)
-        {
-            this.lightOffset.x -= diff.x; 
-            if(this.lightOffset.x - diff.x > this.halfWinSize.width - 100)
-            {
-                if(currentPos.x > 0)
-                {
-                    this.lightOffset.x = 0;
-                    moveOffsetX = true;
-                }
-                else
-                {
-                    this.lightOffset.x = this.halfWinSize.width - 100;
-                }
-            }
-    
-            if(this.lightOffset.x - diff.x < -this.halfWinSize.width + 100)
-            {
-                if(currentPos.x < 0)
-                {    
-                    this.lightOffset.x = 0;
-                    moveOffsetX = true;
-                }
-                else
-                {
-                    this.lightOffset.x = -this.halfWinSize.width + 100;
-                }
-            }
-            ECGameController.instance.flashLight.node.setPosition(this.lightOffset);
-        }
-
         let p = currentPos;
-        if(ECGameController.instance.flashLight.node.active)
+        if(ECGameController.instance.flashLight.Light.activeInHierarchy)
         {
             if(moveOffsetX)
             p.x += diff.x;
@@ -201,33 +203,36 @@ export default class ECScene extends cc.Component
         // Left
         if(p.x - (this.boundary.x) > 0)
         {
-            if(moveOffsetX)
+            if(ECGameController.instance.flashLight.Light.activeInHierarchy && moveOffsetX)
             this.lightOffset.x -= p.x - (this.boundary.x)
             p.x = this.boundary.x;
         }
         // Right
         if(p.x  <  this.boundary.width)
         { 
-            if(moveOffsetX)
+            if(ECGameController.instance.flashLight.Light.activeInHierarchy && moveOffsetX)
             this.lightOffset.x += this.boundary.width - p.x
             p.x = this.boundary.width;
         }
         // Bottom
         if(p.y  > (this.boundary.height))
         {
-            if(moveOffsetY)
+            if(ECGameController.instance.flashLight.Light.activeInHierarchy && moveOffsetY)
             this.lightOffset.y -= p.y - (this.boundary.height);
             p.y = this.boundary.height;
         }
         // Up
         if(p.y  <  this.boundary.y)
         {
-            if(moveOffsetY)
+            if(ECGameController.instance.flashLight.Light.activeInHierarchy && moveOffsetY)
             this.lightOffset.y += this.boundary.y - p.y;
             p.y = this.boundary.y;
         }
 
-        ECGameController.instance.flashLight.node.setPosition(this.lightOffset);
+        if(ECGameController.instance.flashLight.Light.activeInHierarchy)
+        {
+            ECGameController.instance.flashLight.node.setPosition(this.lightOffset);
+        }
         this.backgroundLayer.setPosition(p);
         ECGameController.instance.lightEventParent.setPosition(p);
     }
