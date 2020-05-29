@@ -42,6 +42,10 @@ export default class ECScene extends cc.Component
         ECGameController.instance.lightEventParent.setPosition(this.backgroundLayer.getPosition());
         ECGameController.instance.lightEventParent.destroyAllChildren();
         let lights:cc.Component[]=this.getComponentsInChildren("ECSliverLightEvent");
+        let sceneLight:cc.Component = this.getComponentInChildren("ECLightEvent");
+        if(sceneLight)
+        lights.push(sceneLight);
+
         for(let i=0;i<lights.length;i++)
         {
             lights[i].node.setParent(ECGameController.instance.lightEventParent);
@@ -67,7 +71,10 @@ export default class ECScene extends cc.Component
         );
 
         this.touchEvents = this.node.getComponentsInChildren("ECTouchEvent");
+        if(sceneLight)
+        this.touchEvents.push(sceneLight);
         this.lightEvents = ECGameController.instance.lightEventParent.getComponentsInChildren("ECTouchEvent");
+  
     }
 
     onDestroy()
@@ -114,8 +121,8 @@ export default class ECScene extends cc.Component
 
         let currentPos = this.backgroundLayer.getPosition();
     
-        let moveOffsetY = ECGameController.instance.flashLight.node.active && Math.abs(this.lightOffset.y) < 10;
-        let moveOffsetX = ECGameController.instance.flashLight.node.active && Math.abs(this.lightOffset.x) < 10;
+        let moveOffsetY = ECGameController.instance.flashLight.Light.active && Math.abs(this.lightOffset.y) < 10;
+        let moveOffsetX = ECGameController.instance.flashLight.Light.active && Math.abs(this.lightOffset.x) < 10;
         if(!moveOffsetY)
         {
             this.lightOffset.y -= diff.y;
@@ -234,7 +241,7 @@ export default class ECScene extends cc.Component
         }
         
         // タップ範囲は懐中電灯の範囲にあるかどうかをチェックする
-        if(ECGameController.instance.flashLight.node.active &&
+        if(ECGameController.instance.flashLight.Light.active &&
             ECGameController.instance.flashLight.node.position.sub(
             ECGameController.instance.flashLight.node.parent.convertToNodeSpaceAR(touch.getLocation())
             ).mag() > 220)

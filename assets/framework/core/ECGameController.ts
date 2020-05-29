@@ -8,6 +8,7 @@ import ECLocalStorage from "./ECLocalStorage";
 import ECEvent from "../components/events/ECEvent";
 import ECNative from "../native/ECNative";
 import { ECShake } from "../action/ECShake";
+import ECLightEvent from "../components/events/ECLightEvent";
 
 
 const {ccclass, property} = cc._decorator;
@@ -42,6 +43,7 @@ export default class ECGameController extends cc.Component
     public continueScene:string = "";
 
     private totalMarkCount:number = 0;
+    public flashLightOn:boolean = true;
     public playRound = 0;
 
     onLoad () 
@@ -94,8 +96,10 @@ export default class ECGameController extends cc.Component
         cc.systemEvent.on(ECEvents.Effect,this.onEffect.bind(this));
         cc.systemEvent.on(ECEvents.GlobalEvent,this.onGlobalEvent.bind(this));
         cc.systemEvent.on(ECEvents.Event,this.onEvent.bind(this));
+        this.flashLightOn = this.hasFlashLight2();
         this.loadSaveData();
         this.flashLight.onInitialize();
+        this.onUpdateFlashLight();
     }
 
     public startGame()
@@ -172,18 +176,44 @@ export default class ECGameController extends cc.Component
         this.saveItem();
     }
 
-    private onUpdateFlashLight()
+    public onUpdateFlashLight()
     {
-        this.flashLight.node.active = this.hasFlashLight() || this.hasFlashLight2();
-        if(!ECGameController.instance.hasFlashLight2())
+        let light:ECLightEvent = this.getSceneLight();
+        this.flashLight.node.active = this.hasFlashLight() || this.hasFlashLight2() || light != null;
+        if(light)
         {
-            this.flashLight.Light.active = false;
-            this.flashLight.Dark.active = true;
+            
+            if(this.getFlagStatus(light.flag) == ECFlagStatus.Start)
+            {
+                if(this.flashLightOn)
+                {
+                    this.flashLight.Light.active = true;
+                    this.flashLight.Dark.active = false;
+                }
+                else
+                {
+                    this.flashLight.Light.active = false;
+                    this.flashLight.Dark.active = true;
+                }
+            }
+            else
+            {
+                this.flashLight.Light.active = false;
+                this.flashLight.Dark.active = false;
+            }
         }
         else
         {
-            this.flashLight.Light.active = true;
-            this.flashLight.Dark.active = false;
+            if(!ECGameController.instance.hasFlashLight2())
+            {
+                this.flashLight.Light.active = false;
+                this.flashLight.Dark.active = true;
+            }
+            else
+            {
+                this.flashLight.Light.active = true;
+                this.flashLight.Dark.active = false;
+            }
         }
     }
 
@@ -209,6 +239,11 @@ export default class ECGameController extends cc.Component
             }
         }
         return false
+    }
+
+    public getSceneLight():ECLightEvent
+    {
+        return this.lightEventParent.getComponentInChildren(ECLightEvent);
     }
 
     public getCoin(coin:number)
@@ -270,6 +305,7 @@ export default class ECGameController extends cc.Component
             }
             
             this.currentScene = newScene;
+            
             this.currentScene.canBack = canBack;
             this.continueScene = this.currentScene.node.name;
             ECLocalStorage.setItem(ECSaveKeys.ContinueScene,this.currentScene.node.name,true);
@@ -290,6 +326,7 @@ export default class ECGameController extends cc.Component
             this.gameScene.addChild(newNode);
             newNode.position = cc.Vec3.ZERO;
             cc.systemEvent.emit(ECEvents.SceneChanged,this.continueScene);
+            this.onUpdateFlashLight();
             if(callback)
             {
                 callback();

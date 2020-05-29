@@ -83,7 +83,7 @@ export default class ECHUDLayer extends ECBaseLayer {
     onShowing()
     {
         this.FlashLight.active = ECGameController.instance.hasFlashLight() || ECGameController.instance.hasFlashLight2();
-        if(ECGameController.instance.flashLight.Light.active)
+        if(ECGameController.instance.flashLightOn)
         {
             this.FlashLight.getComponentInChildren(cc.Sprite).spriteFrame = this.lightOn;
         }
@@ -150,9 +150,9 @@ export default class ECHUDLayer extends ECBaseLayer {
         {
             return;
         }
-
-        cc.systemEvent.emit(ECEvents.SwitchLight, !ECGameController.instance.flashLight.Light.active);
-        if(ECGameController.instance.flashLight.Light.active)
+        ECGameController.instance.flashLightOn = ! ECGameController.instance.flashLightOn;
+        cc.systemEvent.emit(ECEvents.SwitchLight, ECGameController.instance.flashLightOn);
+        if(ECGameController.instance.flashLightOn)
         {
             this.FlashLight.getComponentInChildren(cc.Sprite).spriteFrame = this.lightOn;
         }

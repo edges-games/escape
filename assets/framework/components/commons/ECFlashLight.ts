@@ -1,5 +1,6 @@
-import { ECEvents } from "../../consts/ECConsts";
+import { ECEvents, ECFlagStatus } from "../../consts/ECConsts";
 import ECGameController from "../../core/ECGameController";
+import ECLightEvent from "../events/ECLightEvent";
 
 const {ccclass, property} = cc._decorator;
 
@@ -12,17 +13,6 @@ export default class ECFlashLight extends cc.Component {
 
     onInitialize()
     {
-        this.node.active = ECGameController.instance.hasFlashLight() || ECGameController.instance.hasFlashLight2();
-        if(!ECGameController.instance.hasFlashLight2())
-        {
-            this.Light.active = false;
-            this.Dark.active = true;
-        }
-        else
-        {
-            this.Light.active = true;
-            this.Dark.active = false;
-        }
         cc.systemEvent.on(ECEvents.SwitchLight,this.onSwitchLight.bind(this));
         cc.tween(this.Mask).hide().start();
         var showMask= ()=> {
@@ -41,8 +31,20 @@ export default class ECFlashLight extends cc.Component {
 
     onSwitchLight(on)
     {
-        this.Light.active = on;
-        this.Dark.active = !on;
+        let sceneLight:ECLightEvent = ECGameController.instance.getSceneLight();
+        if(!sceneLight)
+        {
+            this.Light.active = on;
+            this.Dark.active = !on;
+            
+        }
+        else
+        {
+            if(ECGameController.instance.getFlagStatus(sceneLight.flag) == ECFlagStatus.Start)
+            {
+                this.Light.active = on;
+                this.Dark.active = !on;
+            }
+        }
     }
-    
 }
