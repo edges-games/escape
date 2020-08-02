@@ -36,12 +36,12 @@ export default class ECMapLayer extends ECBaseLayer {
     {
         if(ECGameController.instance.currentItem)
         {
-            cc.loader.loadRes("items/" + ECGameController.instance.currentItem + "_u",
+            cc.resources.load("items/" + ECGameController.instance.currentItem + "_u",
              cc.SpriteFrame,function (err, spriteFrame) {this.bagButton.spriteFrame = spriteFrame; }.bind(this));
         }
         else
         {
-            cc.loader.loadRes("items/btn_item",
+            cc.resources.load("items/btn_item",
              cc.SpriteFrame,function (err, spriteFrame) {this.bagButton.spriteFrame = spriteFrame; }.bind(this));
         }
     }

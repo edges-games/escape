@@ -579,6 +579,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "設定",
     "_N$string": "設定",
@@ -737,7 +739,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -830,6 +832,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "閉じる",
     "_N$string": "閉じる",
@@ -1590,6 +1594,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "設定",
     "_N$string": "設定",
@@ -1612,15 +1618,13 @@
     "_id": ""
   },
   {
-    "__type__": "8cad00V6JNGzIXyQW2O1nDq",
+    "__type__": "456bawERMVLPpqdGpqdxTsY",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 40
     },
     "_enabled": true,
-    "Key": "",
-    "richText": true,
     "_id": ""
   },
   {

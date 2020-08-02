@@ -54,22 +54,43 @@ export default class ECLocalStorage
         return cc.sys.localStorage.getItem(item);
     }
 
-    public static getIntgerItem(item:string):number
-    {
-        let value = cc.sys.localStorage.getItem(item);
-        return value == null? 0.0 : parseInt(value);
-    }
-
-    public static getFloatItem(item:string):number
-    {
-        let value = cc.sys.localStorage.getItem(item);
-        return value == null? 0.0 : parseFloat(value);
-    }
-
     public static getBooleanItem(item:string, defaultValue:boolean = false):boolean
     {
-        let value = cc.sys.localStorage.getItem(item);
-        return value == null? defaultValue : value == "true";
+        let stringValue :string =  cc.sys.localStorage.getItem(item);
+        if(stringValue)
+        {
+            return stringValue == "true";
+        }
+        else
+        {
+            return defaultValue;
+        }
+    }
+
+    public static getIntegerItem(item:string, defaultValue:number = 0):number
+    {
+        let stringValue :string =  cc.sys.localStorage.getItem(item);
+        if(stringValue)
+        {
+            return parseInt(stringValue);
+        }
+        else
+        {
+            return defaultValue;
+        }
+    }
+
+    public static getFloatItem(item:string, defaultValue:number = 0.0):number
+    {
+        let stringValue :string =  cc.sys.localStorage.getItem(item);
+        if(stringValue)
+        {
+            return parseFloat(stringValue);
+        }
+        else
+        {
+            return defaultValue;
+        }
     }
 
     public static save()

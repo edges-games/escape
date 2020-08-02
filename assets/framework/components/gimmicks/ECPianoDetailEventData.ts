@@ -10,7 +10,7 @@ export default class ECPianoDetailEventData extends ECDetailEventData
 
     onTouchKey(key)
     {
-        cc.loader.loadRes("audios/se/se_piano_" + key, cc.AudioClip, function (err, clip) {
+        cc.resources.load("audios/se/se_piano_" + key, cc.AudioClip, function (err, clip) {
             var audioID = cc.audioEngine.playEffect(clip, false);
         });
         this.currentMusic += key;

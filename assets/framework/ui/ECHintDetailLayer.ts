@@ -9,7 +9,7 @@ export default class HintDetailLayer extends ECBaseLayer {
     @property(cc.Label) title:cc.Label = null;
     @property(cc.Label) content:cc.Label = null;
 
-    public show(args:any)
+    public show(args:any = null)
     {
         this.title.string = ECLocalization.format("LK_" + args.flag.toUpperCase() + "_TITLE");
         this.content.string = ECLocalization.format("LK_" + args.flag.toUpperCase() + "_CONTENT");

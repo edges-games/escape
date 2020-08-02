@@ -73,7 +73,7 @@ export default class ECMasterData extends cc.Component {
             data.round = flagdata[i][0];
             data.flag = flagdata[i][1];
             data.status = flagdata[i][2];
-            data.requisite = flagdata[i][3];
+            data.requisite = flagdata[i][3] == "1";
             this.flags[data.flag] = data;
         }
     }
@@ -143,7 +143,7 @@ export class FlagData
     public flag:string;
     public round:number;
     public status:string;
-    public requisite:string;
+    public requisite:boolean;
 }
 
 @ccclass

@@ -61,12 +61,12 @@ export default class ECHUDLayer extends ECBaseLayer {
     {
         if(ECGameController.instance.currentItem)
         {
-            cc.loader.loadRes("items/" + ECGameController.instance.currentItem + "_u",
+            cc.resources.load("items/" + ECGameController.instance.currentItem + "_u",
              cc.SpriteFrame,function (err, spriteFrame) {this.bagButton.spriteFrame = spriteFrame; }.bind(this));
         }
         else
         {
-            cc.loader.loadRes("items/btn_item",
+            cc.resources.load("items/btn_item",
              cc.SpriteFrame,function (err, spriteFrame) {this.bagButton.spriteFrame = spriteFrame; }.bind(this));
         }
     }
@@ -83,7 +83,7 @@ export default class ECHUDLayer extends ECBaseLayer {
     onShowing()
     {
         this.FlashLight.active = ECGameController.instance.hasFlashLight() || ECGameController.instance.hasFlashLight2();
-        if(ECGameController.instance.flashLightOn)
+        if(ECGameController.instance.flashLight.Light.active)
         {
             this.FlashLight.getComponentInChildren(cc.Sprite).spriteFrame = this.lightOn;
         }
@@ -97,7 +97,7 @@ export default class ECHUDLayer extends ECBaseLayer {
         this.onItemEquip(null);
     }
 
-    public show(args:any)
+    public show(args:any = null)
     {
         this.onShowing();
         this.node.active=true;
@@ -150,9 +150,9 @@ export default class ECHUDLayer extends ECBaseLayer {
         {
             return;
         }
-        ECGameController.instance.flashLightOn = ! ECGameController.instance.flashLightOn;
-        cc.systemEvent.emit(ECEvents.SwitchLight, ECGameController.instance.flashLightOn);
-        if(ECGameController.instance.flashLightOn)
+
+        cc.systemEvent.emit(ECEvents.SwitchLight, !ECGameController.instance.flashLight.Light.active);
+        if(ECGameController.instance.flashLight.Light.active)
         {
             this.FlashLight.getComponentInChildren(cc.Sprite).spriteFrame = this.lightOn;
         }
@@ -166,7 +166,7 @@ export default class ECHUDLayer extends ECBaseLayer {
     {
         let tp = this.Coin.position;
         tp.x -= 20;
-        cc.loader.loadRes("particles/coin", function(error,prefab){
+        cc.resources.load("particles/coin", function(error,prefab){
             var tap:cc.Node = cc.instantiate(prefab);
             ECUIGroup.instance.node.addChild(tap);
             tap.setPosition(this.node.convertToNodeSpaceAR(coinevent.node.parent.convertToWorldSpaceAR(coinevent.node.position)));

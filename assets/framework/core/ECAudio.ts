@@ -11,11 +11,21 @@ export default class ECAudio extends cc.Component
     private lastBGM:cc.AudioClip = null;
     private lastLoopSound:cc.AudioClip = null;
 
+    playLastBGM()
+    {
+        if(this.lastBGM)
+        {
+            this.BGMPlayer.clip = this.lastBGM;
+            this.BGMPlayer.play();
+            this.BGMPlayer.volume = 1;
+        }
+    }
+
     playBGM(music: cc.AudioClip,fadeIn:number = 0) 
     {
         if(ECGameController.instance.EnableMusic)
         {
-            if(this.BGMPlayer.clip != music)
+            if(this.lastBGM != music)
             {
                 this.lastBGM = music;
                 if(music)
@@ -39,13 +49,17 @@ export default class ECAudio extends cc.Component
                 }
             }
         }
+        else
+        {
+            this.lastBGM = music;
+        }
     }
 
     playBGMAsync(sound: string)
     {
         if(ECGameController.instance.EnableSound)
         {
-            cc.loader.loadRes(sound,cc.AudioClip,function(error,music)
+            cc.resources.load(sound,cc.AudioClip,function(error,music)
             {
                 this.lastBGM = music;
                 this.BGMPlayer.clip = music;
@@ -57,13 +71,11 @@ export default class ECAudio extends cc.Component
     stopBGM(fadeIn:number = 0)
     {
         this.BGMPlayer.stop();
-        this.BGMPlayer.clip = null;
-        this.lastBGM = null;
     }
 
     playSound(sound: cc.AudioClip,volume:number=1)
     {
-        if(sound && ECGameController.instance.EnableSound)
+        if(ECGameController.instance.EnableSound)
         {
             cc.audioEngine.setEffectsVolume(volume);
             cc.audioEngine.playEffect(sound,false);
@@ -74,7 +86,7 @@ export default class ECAudio extends cc.Component
     {
         if(ECGameController.instance.EnableSound)
         {
-            cc.loader.loadRes(sound,cc.AudioClip,function(error,clip)
+            cc.resources.load(sound,cc.AudioClip,function(error,clip)
             {
                 cc.audioEngine.setEffectsVolume(volume);
                 cc.audioEngine.playEffect(clip,false);
@@ -86,7 +98,7 @@ export default class ECAudio extends cc.Component
     {
         if(ECGameController.instance.EnableSound)
         {
-            if(this.LoopSoundPlayer.clip != sound)
+            if(this.lastLoopSound != sound)
             {
                 this.lastLoopSound = sound;
                 this.LoopSoundPlayer.clip = sound;
@@ -101,7 +113,7 @@ export default class ECAudio extends cc.Component
         {
             if(ECGameController.instance.EnableSound)
             {
-                cc.loader.loadRes(sound,cc.AudioClip,function(error,clip)
+                cc.resources.load(sound,cc.AudioClip,function(error,clip)
                 {
                     if(this.LoopSoundPlayer.clip != sound)
                     {

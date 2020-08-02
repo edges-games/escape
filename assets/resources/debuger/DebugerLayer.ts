@@ -1,7 +1,6 @@
 import SaveDataLayer from "./SaveDataLayer";
 import StorageLayer from "./StorageLayer";
 import ECGameController from "../../framework/core/ECGameController";
-import Native from "../../framework/native/ECNative";
 import ECLocalization from "../../framework/core/ECLocalization";
 import { ECStrings, ECEvents, ECFlagStatus, ECSaveKeys } from "../../framework/consts/ECConsts";
 import ECUIGroup from "../../framework/ui/ECUIGroup";
@@ -56,42 +55,47 @@ export default class DebugerLayer extends cc.Component {
 
     initNative()
     {
-        Native.cooperate(JSON.stringify(ECGameController.instance.properties.naitve.json));
+        ECNative.cooperate(JSON.stringify(ECGameController.instance.properties.naitve.json));
     }
 
     review()
     {
-        Native.goReview(ECLocalization.format(ECStrings.LK_REVIEW_DIALOG_TITLE),ECLocalization.format(ECStrings.LK_REVIEW_DIALOG_CONTENT));
+        ECNative.goReview(ECLocalization.format(ECStrings.LK_REVIEW_DIALOG_TITLE),ECLocalization.format(ECStrings.LK_REVIEW_DIALOG_CONTENT));
     }
 
     share()
     {
-        Native.shareMessage(ECLocalization.format(ECStrings.LK_SHARE), ECLocalization.format(ECStrings.LK_SHARE_MESSAGE));
+        ECNative.shareMessage(ECLocalization.format(ECStrings.LK_SHARE), ECLocalization.format(ECStrings.LK_SHARE_MESSAGE));
     }
 
     showVideo()
     {
-        Native.showUnityVideoAd((result)=>{this.response.string = result});
+        ECNative.showUnityVideoAd((result)=>{this.response.string = result});
     }
 
     vibrate()
     {
-        Native.vibrate(1000);
+        ECNative.vibrate(1000);
     }
 
     querySkuDetails()
     {
-        Native.querySkuDetails((result)=>{this.response.string = result});
+        ECNative.querySkuDetails("");
+    }
+
+    querySkuPrice()
+    {
+        ECNative.querySkuPrice(this.editBox.string,"buy");
     }
 
     launchBillingFlow()
     {
-        Native.launchBillingFlow(this.editBox.string);
+        ECNative.launchBillingFlow(this.editBox.string);
     }
 
     records()
     {
-        cc.loader.loadRes("debuger/records",cc.Prefab,(error,prefab)=>{
+        cc.resources.load("debuger/records",cc.Prefab,(error,prefab:cc.Prefab)=>{
             let node: cc.Node = cc.instantiate(prefab);
             this.node.addChild(node);
             node.getComponent(SaveDataLayer).onShowing();
@@ -101,7 +105,7 @@ export default class DebugerLayer extends cc.Component {
 
     storage()
     {
-        cc.loader.loadRes("debuger/storage",cc.Prefab,(error,prefab)=>{
+        cc.resources.load("debuger/storage",cc.Prefab,(error,prefab:cc.Prefab)=>{
             let node: cc.Node = cc.instantiate(prefab);
             this.node.addChild(node);
             node.getComponent(StorageLayer).onShowing();

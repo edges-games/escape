@@ -65,7 +65,7 @@ export default class ECChatItem extends cc.Component {
         this.text.active = false;
         this.sprite.node.active = true;
         let self = this;
-        cc.loader.loadRes(json["Value"],cc.SpriteFrame,function(error,sprteFrame)
+        cc.resources.load(json["Value"],cc.SpriteFrame,function(error,sprteFrame:cc.SpriteFrame)
         {
             self.sprite.spriteFrame = sprteFrame;
 

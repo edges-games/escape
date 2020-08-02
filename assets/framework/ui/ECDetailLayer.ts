@@ -39,12 +39,12 @@ export default class DetailLayer extends ECBaseLayer
     {
         if(ECGameController.instance.currentItem)
         {
-            cc.loader.loadRes("items/" + ECGameController.instance.currentItem + "_u",
+            cc.resources.load("items/" + ECGameController.instance.currentItem + "_u",
              cc.SpriteFrame,function (err, spriteFrame) {this.bagButton.spriteFrame = spriteFrame; }.bind(this));
         }
         else
         {
-            cc.loader.loadRes("items/btn_item",
+            cc.resources.load("items/btn_item",
              cc.SpriteFrame,function (err, spriteFrame) {this.bagButton.spriteFrame = spriteFrame; }.bind(this));
         }
     }
@@ -94,7 +94,7 @@ export default class DetailLayer extends ECBaseLayer
         {
             return;
         }
-        cc.loader.loadRes("particles/tap", function(error,prefab){
+        cc.resources.load("particles/tap", function(error,prefab){
             var tap:cc.Node = cc.instantiate(prefab);
             this.node.addChild(tap);
             tap.setPosition(this.content.convertToNodeSpaceAR(touch.getLocation()));

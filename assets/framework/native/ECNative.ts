@@ -1,8 +1,22 @@
+const {ccclass, property} = cc._decorator;
+/*
+Signature    Java Type
+Z    boolean
+B    byte
+C    char
+S    short
+I    int
+J    long
+F    float
+D    double
+V    void
+L fully-qualified-class ;    fully-qualified-class
+[ type   type[]
+*/
 export default class ECNative 
 {
     static UnityVideoAdCallback = null;
     static InAppPurchaseFinished = null;
-    static SkuDetailsResponse = null;
 
     private static callNativeFunction(methodName: string, methodSignature:{android,ios} = {android:"()V",ios:""}, ...parameters:any):any
     {
@@ -94,9 +108,9 @@ export default class ECNative
         this.callNativeFunction("vibrate",{android:"(I)V",ios:":"}, milliseconds);
     }
 
-    static goReview(title: string, content: string)
+    static goReview(title: string, content: string, simplified:boolean=false)
     {
-        this.callNativeFunction("goReview",{android:"(Ljava/lang/String;Ljava/lang/String;)V",ios:":content"},title ,content);
+        this.callNativeFunction("goReview",{android:"(Ljava/lang/String;Ljava/lang/String;Z)V",ios:":content:simplified:"},title ,content,simplified);
     }
 
     static shareImage(title: string, content: string, imageUrl:string)
@@ -162,16 +176,32 @@ export default class ECNative
         this.callNativeFunction("requestNotification",{android:"(ILjava/lang/String;Ljava/lang/String;)V",ios:":title:content"},seconds,title,content);
     }
 
-    static querySkuDetails(callback:any)
+    static querySkuDetails(sku:string):string
     {
-        ECNative.SkuDetailsResponse = callback;
         if(cc.sys.isMobile)
         {
-            this.callNativeFunction("querySkuDetails");
+            return this.callNativeFunction("querySkuDetails",{android:"(Ljava/lang/String;)Ljava/lang/String;",ios:":"},sku);
         }
         else
         {
-            ECNative.SkuDetailsResponse("coin");
+            return "{}";
+        }
+    }
+
+    static querySkuPrice(sku:string,defaultValue:string):string
+    {
+        if(cc.sys.isMobile)
+        {
+            let price:string = this.callNativeFunction("querySkuPrice",{android:"(Ljava/lang/String;)Ljava/lang/String;",ios:":"},sku);
+            if(price == "NULL")
+            {
+                return defaultValue;
+            }
+            return price;
+        }
+        else
+        {
+            return defaultValue;
         }
     }
 
@@ -212,17 +242,3 @@ window["onInAppPurchaseFinished"] = (result:string,sku:string)=>
         cc.error("There is no callback of Unity video ad");
     }
 }
-
-window["onSkuDetailsResponse"] = (result:string)=>
-{
-    if(ECNative.SkuDetailsResponse)
-    {
-        ECNative.SkuDetailsResponse(result);
-        ECNative.SkuDetailsResponse = null;
-    }
-    else
-    {
-        cc.error("There is no callback of Unity video ad");
-    }
-}
-

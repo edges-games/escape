@@ -94,15 +94,15 @@ export default class ECUIGroup extends cc.Component {
         this._Splash = new cc.Node();
         this.node.addChild(this._Splash);
 
-        this.showLaver(this.detailPrefab, this._Detail, false);
-        this.showLaver(this.textPrefab, this._Text, true);
-        this.showLaver(this.itemPrefab, this._Item, false);
-        this.showLaver(this.scrapDetailPrefab, this._ScrapDetail, false);
-        this.showLaver(this.titlePrefab, this._Title, false);
-        this.showLaver(this.markPrefab, this._Mark, false);
+        this.showLayer(this.detailPrefab, this._Detail, false);
+        this.showLayer(this.textPrefab, this._Text, true);
+        this.showLayer(this.itemPrefab, this._Item, false);
+        this.showLayer(this.scrapDetailPrefab, this._ScrapDetail, false);
+        this.showLayer(this.titlePrefab, this._Title, false);
+        this.showLayer(this.markPrefab, this._Mark, false);
     }
 
-    private showLaver(layerPrefab:cc.Prefab, parent:cc.Node, active:boolean = true, args:any = null)
+    private showLayer(layerPrefab:cc.Prefab, parent:cc.Node, active:boolean = true, args:any = null)
     {
         if(parent.childrenCount == 0)
         {
@@ -143,12 +143,12 @@ export default class ECUIGroup extends cc.Component {
 
     public showStandup()
     {
-        this.showLaver(this.standupPrefab, this._Standup);
+        this.showLayer(this.standupPrefab, this._Standup);
     }
 
     public showSplash()
     {
-        this.showLaver(this.splashPrefab, this._Splash);
+        this.showLayer(this.splashPrefab, this._Splash);
     }
 
     public hideSplash()
@@ -158,7 +158,7 @@ export default class ECUIGroup extends cc.Component {
 
     public showAttention()
     {
-        this.showLaver(this.attentionPrefab, this._Attention);
+        this.showLayer(this.attentionPrefab, this._Attention);
     }
 
     public hideAttention()
@@ -184,7 +184,7 @@ export default class ECUIGroup extends cc.Component {
 
     public showHUD()
     {
-        this.showLaver(this.hudPrefab, this._HUD);
+        this.showLayer(this.hudPrefab, this._HUD);
     }
 
     public hideHUD()
@@ -235,22 +235,22 @@ export default class ECUIGroup extends cc.Component {
 
     public showHint()
     {
-        this.showLaver(this.hintPrefab, this._Hint);
+        this.showLayer(this.hintPrefab, this._Hint);
     }
 
     public showItemBox()
     {
-        this.showLaver(this.itemBoxPrefab, this._ItemBox);
+        this.showLayer(this.itemBoxPrefab, this._ItemBox);
     }
 
     public showShop()
     {
-        this.showLaver(this.shopPrefab, this._Shop);
+        this.showLayer(this.shopPrefab, this._Shop);
     }
 
     public showMap()
     {
-        this.showLaver(this.mapPrefab, this._Map);
+        this.showLayer(this.mapPrefab, this._Map);
     }
 
     public showMovie()
@@ -260,31 +260,31 @@ export default class ECUIGroup extends cc.Component {
 
     public showSetting()
     {
-       this.showLaver(this.settingPrefab, this._Setting);
+       this.showLayer(this.settingPrefab, this._Setting);
     }
 
     public showScrap()
     {
-        this.showLaver(this.scrapPrefab, this._Scrap);
+        this.showLayer(this.scrapPrefab, this._Scrap);
     }
 
     public showScrapDetail(data:any)
     {
-        this.showLaver(this.scrapDetailPrefab, this._ScrapDetail, true, data);
+        this.showLayer(this.scrapDetailPrefab, this._ScrapDetail, true, data);
     }
     
     public showChat()
     {
-        this.showLaver(this.chatPrefab, this._Chat);
+        this.showLayer(this.chatPrefab, this._Chat);
     }
 
     public showMessage(data:any)
     {
-        this.showLaver(this.messagePrefab, this._Message, true, data);
+        this.showLayer(this.messagePrefab, this._Message, true, data);
     }
 
     public showHintDetal(data:any)
     {
-        this.showLaver(this.hintDetailPrefab, this._HintDetal, true, data);
+        this.showLayer(this.hintDetailPrefab, this._HintDetal, true, data);
     }
 }

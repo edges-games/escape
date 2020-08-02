@@ -464,7 +464,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -814,7 +814,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 440,
+      "width": 400,
       "height": 80
     },
     "_anchorPoint": {
@@ -894,7 +894,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -170,
+        -160,
         0,
         0,
         0,
@@ -996,6 +996,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "x5",
     "_N$string": "x5",
@@ -1117,7 +1119,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        150,
+        140,
         0,
         0,
         0,
@@ -1194,7 +1196,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -1287,6 +1289,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "Buy",
     "_N$string": "Buy",
@@ -1563,7 +1567,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 440,
+      "width": 400,
       "height": 80
     },
     "_anchorPoint": {
@@ -1643,7 +1647,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -170,
+        -160,
         0,
         0,
         0,
@@ -1745,6 +1749,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "x16",
     "_N$string": "x16",
@@ -1866,7 +1872,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        150,
+        140,
         0,
         0,
         0,
@@ -1943,7 +1949,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -2036,6 +2042,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "Buy",
     "_N$string": "Buy",
@@ -2312,7 +2320,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 440,
+      "width": 400,
       "height": 80
     },
     "_anchorPoint": {
@@ -2392,7 +2400,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -170,
+        -160,
         0,
         0,
         0,
@@ -2494,6 +2502,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "x23",
     "_N$string": "x23",
@@ -2615,7 +2625,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        150,
+        140,
         0,
         0,
         0,
@@ -2692,7 +2702,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -2785,6 +2795,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "Buy",
     "_N$string": "Buy",
@@ -3061,7 +3073,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 440,
+      "width": 400,
       "height": 80
     },
     "_anchorPoint": {
@@ -3141,7 +3153,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -170,
+        -160,
         0,
         0,
         0,
@@ -3243,6 +3255,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "x31",
     "_N$string": "x31",
@@ -3364,7 +3378,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        150,
+        140,
         0,
         0,
         0,
@@ -3441,7 +3455,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -3534,6 +3548,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "Buy",
     "_N$string": "Buy",
@@ -3810,7 +3826,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 440,
+      "width": 400,
       "height": 80
     },
     "_anchorPoint": {
@@ -3890,7 +3906,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -170,
+        -160,
         0,
         0,
         0,
@@ -3992,6 +4008,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "x70",
     "_N$string": "x70",
@@ -4113,7 +4131,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        150,
+        140,
         0,
         0,
         0,
@@ -4190,7 +4208,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -4283,6 +4301,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "Buy",
     "_N$string": "Buy",
@@ -4559,7 +4579,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 440,
+      "width": 400,
       "height": 80
     },
     "_anchorPoint": {
@@ -4639,7 +4659,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -170,
+        -160,
         0,
         0,
         0,
@@ -4741,6 +4761,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "動画再生で\nコインx1を入手",
     "_N$string": "動画再生で\nコインx1を入手",
@@ -4862,7 +4884,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        150,
+        140,
         0,
         0,
         0,
@@ -4939,7 +4961,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -5032,6 +5054,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "Buy",
     "_N$string": "Buy",
@@ -5473,6 +5497,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "ショップ",
     "_N$string": "ショップ",
@@ -5721,6 +5747,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "x100",
     "_N$string": "x100",

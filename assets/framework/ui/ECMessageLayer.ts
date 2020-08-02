@@ -14,7 +14,7 @@ export default class ECMessageLayer extends ECBaseLayer
 
     private callback:any = null;
 
-    public show(args:any[])
+    public show(args:any = null)
     {
         if(args[3])
         {

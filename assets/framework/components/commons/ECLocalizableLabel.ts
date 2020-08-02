@@ -63,7 +63,7 @@ export default class ECLocalizableLabel extends cc.Component {
             {
                 let match = colorMatches[i];
                 let index = value.indexOf(match);
-                index -= ((value.substr(0,index)).match(/\n/g) || []).length;
+                index -= ((value.substr(0,index)).match(/\s/g) || []).length;
                 let color = parseInt((match.substring(7,13) + "FF").split("").reverse().join(""), 16);
                 let realValue = match.replace(/<color=([0-9A-Fa-f]{6})>/g, "").replace("</color>","").replace(/\\</g, "<").replace(/\\>/g,">");
                 for(let j = index, l = index + realValue.length ; j < l; j++)

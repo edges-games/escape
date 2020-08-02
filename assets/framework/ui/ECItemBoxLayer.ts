@@ -79,7 +79,7 @@ export default class ECItemBoxLayer extends ECBaseLayer
     {
         if(ECGameController.instance.currentItem)
         {
-            cc.loader.loadRes("items/" + ECGameController.instance.currentItem + "_u",
+            cc.resources.load("items/" + ECGameController.instance.currentItem + "_u",
              cc.SpriteFrame,function (err, spriteFrame) {
                  this.bagButton.spriteFrame = spriteFrame; 
                 }.bind(this));
@@ -88,7 +88,7 @@ export default class ECItemBoxLayer extends ECBaseLayer
         }
         else
         {
-            cc.loader.loadRes("items/btn_close",
+            cc.resources.load("items/btn_close",
              cc.SpriteFrame,function (err, spriteFrame) {this.bagButton.spriteFrame = spriteFrame; }.bind(this));
              this.useItemLabel.active = true;
         }
@@ -120,8 +120,8 @@ export default class ECItemBoxLayer extends ECBaseLayer
             let sp:ECItemButton = cc.instantiate(this.itemButtonPrefab).getComponent(ECItemButton);
             sp.item = ECGameController.instance.items[i];
             sp.initialize(this.node,"ItemBoxLayer","onSelectItem");
-            cc.loader.loadRes("items/" + sp.item,cc.SpriteFrame,
-                function(error,spriteFrame){
+            cc.resources.load("items/" + sp.item,cc.SpriteFrame,
+                function(error,spriteFrame:cc.SpriteFrame){
                     sp.sprite.spriteFrame = spriteFrame;
                 }
             )
@@ -361,8 +361,8 @@ export default class ECItemBoxLayer extends ECBaseLayer
             let II:ECItemDetail = cc.instantiate(this.itemDetailPrefab).getComponent(ECItemDetail);
             II.useItemCamera = this.selected.length == 1;
             II.initialize();
-            cc.loader.loadRes("items/" + this.selected[i].item,cc.SpriteFrame,
-            function(error,spriteFrame){{II.setSpriteTexture(spriteFrame);}});
+            cc.resources.load("items/" + this.selected[i].item,cc.SpriteFrame,
+            function(error,spriteFrame:cc.SpriteFrame){{II.setSpriteTexture(spriteFrame);}});
             this.detailParent.addChild(II.node);
             this.detailItems.push(II);
             II.text.string = ECLocalization.format("LK_"+this.selected[i].item.toUpperCase()+"_NAME");

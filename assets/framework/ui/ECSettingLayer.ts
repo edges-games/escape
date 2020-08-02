@@ -1,6 +1,9 @@
 import ECBaseLayer from "./ECBaseLayer";
 import ECGameController from "../core/ECGameController";
 import ECUIGroup from "./ECUIGroup";
+import ECNative from "../native/ECNative";
+import ECLocalization from "../core/ECLocalization";
+import { ECStrings } from "../consts/ECConsts";
 
 const {ccclass, property} = cc._decorator;
 
@@ -51,7 +54,7 @@ export default class SettingLayer extends ECBaseLayer {
 
     public onShowDebuger()
     {
-        cc.loader.loadRes("debuger/debuger",cc.Prefab,(error,prefab)=>{
+        cc.resources.load("debuger/debuger",cc.Prefab,(error,prefab:cc.Prefab)=>{
            let node: cc.Node = cc.instantiate(prefab);
            this.node.parent.addChild(node);
            node.setPosition(cc.Vec2.ZERO);
@@ -71,5 +74,10 @@ export default class SettingLayer extends ECBaseLayer {
         .to(1,{opacity:0})
         .call(()=>{ECGameController.instance.mask.active=false;})
         .start();
+    }
+
+    public onShare()
+    {
+        ECNative.shareMessage(ECLocalization.format(ECStrings.LK_SHARE), ECLocalization.format(ECStrings.LK_SHARE_MESSAGE));
     }
 }

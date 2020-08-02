@@ -21,7 +21,7 @@ export default class ECItemLayer extends ECBaseLayer
 
     onGetItem(item:string)
     {
-        cc.loader.loadRes("items/" + item,cc.SpriteFrame,
+        cc.resources.load("items/" + item,cc.SpriteFrame,
         function(error,spriteFrame)
         {
             this.itemSprite.spriteFrame = spriteFrame;
@@ -38,7 +38,7 @@ export default class ECItemLayer extends ECBaseLayer
         super.show();
     }
 
-    public show(args:any)
+    public show(args:any = null)
     {
         this.onGetItem(args[0]);
     }

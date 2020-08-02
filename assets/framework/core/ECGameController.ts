@@ -8,7 +8,6 @@ import ECLocalStorage from "./ECLocalStorage";
 import ECEvent from "../components/events/ECEvent";
 import ECNative from "../native/ECNative";
 import { ECShake } from "../action/ECShake";
-import ECLightEvent from "../components/events/ECLightEvent";
 
 
 const {ccclass, property} = cc._decorator;
@@ -43,7 +42,6 @@ export default class ECGameController extends cc.Component
     public continueScene:string = "";
 
     private totalMarkCount:number = 0;
-    public flashLightOn:boolean = true;
     public playRound = 0;
 
     onLoad () 
@@ -96,10 +94,8 @@ export default class ECGameController extends cc.Component
         cc.systemEvent.on(ECEvents.Effect,this.onEffect.bind(this));
         cc.systemEvent.on(ECEvents.GlobalEvent,this.onGlobalEvent.bind(this));
         cc.systemEvent.on(ECEvents.Event,this.onEvent.bind(this));
-        this.flashLight.onInitialize();
         this.loadSaveData();
-
-        
+        this.flashLight.onInitialize();
     }
 
     public startGame()
@@ -112,7 +108,7 @@ export default class ECGameController extends cc.Component
             for(let k in globalEvents)
             {
                 let e:{url:string,flag:string} = globalEvents[k];
-                cc.loader.loadRes(e.url,cc.Prefab,function(error,prefab)
+                cc.resources.load(e.url,cc.Prefab,function(error,prefab)
                 {
                     let node:cc.Node = cc.instantiate(prefab);
                     node.parent = ECGameController.instance.globleEventParent;
@@ -134,7 +130,7 @@ export default class ECGameController extends cc.Component
 
     onEvent(url)
     {
-        cc.loader.loadRes(url,cc.Prefab,function(error,prefab)
+        cc.resources.load(url,cc.Prefab,function(error,prefab)
         {
             let node:cc.Node = cc.instantiate(prefab);
             node.parent = ECGameController.instance.currentScene.node;
@@ -153,7 +149,7 @@ export default class ECGameController extends cc.Component
         globalEvents[flag] = {url:url,flag:flag};
         ECLocalStorage.setItem(ECSaveKeys.GlobalEvents,JSON.stringify(globalEvents));
 
-        cc.loader.loadRes(url,cc.Prefab,function(error,prefab)
+        cc.resources.load(url,cc.Prefab,function(error,prefab)
         {
             let node:cc.Node = cc.instantiate(prefab);
             node.parent = ECGameController.instance.globleEventParent;
@@ -163,7 +159,7 @@ export default class ECGameController extends cc.Component
 
     public onEffect(url:string)
     {
-        cc.loader.loadRes(url,cc.Prefab,function(error,prefab)
+        cc.resources.load(url,cc.Prefab,function(error,prefab)
         {
             let effect:cc.Node = cc.instantiate(prefab);
             effect.parent = ECGameController.instance.gameScene;
@@ -176,44 +172,18 @@ export default class ECGameController extends cc.Component
         this.saveItem();
     }
 
-    public onUpdateFlashLight()
+    private onUpdateFlashLight()
     {
-        let light:ECLightEvent = this.getSceneLight();
-        this.flashLight.node.active = this.hasFlashLight() || this.hasFlashLight2() || light != null;
-        if(light)
+        this.flashLight.node.active = this.hasFlashLight() || this.hasFlashLight2();
+        if(!ECGameController.instance.hasFlashLight2())
         {
-            
-            if(this.getFlagStatus(light.flag) == ECFlagStatus.Start)
-            {
-                if(this.flashLightOn)
-                {
-                    this.flashLight.Light.active = true;
-                    this.flashLight.Dark.active = false;
-                }
-                else
-                {
-                    this.flashLight.Light.active = false;
-                    this.flashLight.Dark.active = true;
-                }
-            }
-            else
-            {
-                this.flashLight.Light.active = false;
-                this.flashLight.Dark.active = false;
-            }
+            this.flashLight.Light.active = false;
+            this.flashLight.Dark.active = true;
         }
         else
         {
-            if(!this.flashLightOn)
-            {
-                this.flashLight.Light.active = false;
-                this.flashLight.Dark.active = true;
-            }
-            else
-            {
-                this.flashLight.Light.active = true;
-                this.flashLight.Dark.active = false;
-            }
+            this.flashLight.Light.active = true;
+            this.flashLight.Dark.active = false;
         }
     }
 
@@ -239,11 +209,6 @@ export default class ECGameController extends cc.Component
             }
         }
         return false
-    }
-
-    public getSceneLight():ECLightEvent
-    {
-        return this.lightEventParent.getComponentInChildren(ECLightEvent);
     }
 
     public getCoin(coin:number)
@@ -291,9 +256,8 @@ export default class ECGameController extends cc.Component
         {
             this.locker.active = true;
         }
-        this.lightEventParent.destroyAllChildren();
-        this.gameScene.destroyAllChildren();
-        cc.loader.loadRes("scenes/" + scene, function (err, prefab){
+ 
+        cc.resources.load("scenes/" + scene, function (err, prefab){
             var newNode:cc.Node = cc.instantiate(prefab);
             let newScene:ECScene = newNode.getComponent(ECScene);
             if(this.currentScene && newScene.previousScene)
@@ -306,7 +270,6 @@ export default class ECGameController extends cc.Component
             }
             
             this.currentScene = newScene;
-            
             this.currentScene.canBack = canBack;
             this.continueScene = this.currentScene.node.name;
             ECLocalStorage.setItem(ECSaveKeys.ContinueScene,this.currentScene.node.name,true);
@@ -322,11 +285,11 @@ export default class ECGameController extends cc.Component
             {
                 this.currentScene.initilaizeEvents();
             }
-
+            this.lightEventParent.destroyAllChildren();
+            this.gameScene.destroyAllChildren();
             this.gameScene.addChild(newNode);
             newNode.position = cc.Vec3.ZERO;
             cc.systemEvent.emit(ECEvents.SceneChanged,this.continueScene);
-            this.onUpdateFlashLight();
             if(callback)
             {
                 callback();
@@ -490,14 +453,14 @@ export default class ECGameController extends cc.Component
     loadSaveData()
     {
         this.continueScene = ECLocalStorage.getItem(ECSaveKeys.ContinueScene);
-        this.EnableSound = ECLocalStorage.getItem(ECSaveKeys.EnableSound) || true;
-        this.EnableMusic = ECLocalStorage.getItem(ECSaveKeys.EnableMusic) || true;
-        this.EnableVibration = ECLocalStorage.getItem(ECSaveKeys.EnableVibration) || true;
+        this.EnableSound = ECLocalStorage.getBooleanItem(ECSaveKeys.EnableSound,true);
+        this.EnableMusic = ECLocalStorage.getBooleanItem(ECSaveKeys.EnableMusic,true);
+        this.EnableVibration = ECLocalStorage.getBooleanItem(ECSaveKeys.EnableVibration,true);
         this.items = ECLocalStorage.getItem(ECSaveKeys.Items)? JSON.parse(ECLocalStorage.getItem(ECSaveKeys.Items)):[];
-        this.hasMap = ECLocalStorage.getItem(ECSaveKeys.EnableMap) || false;
-        this.hasMessage = ECLocalStorage.getItem(ECSaveKeys.EnableMessage) || false;
+        this.hasMap = ECLocalStorage.getBooleanItem(ECSaveKeys.EnableMap,false);
+        this.hasMessage = ECLocalStorage.getBooleanItem(ECSaveKeys.EnableMessage,false);
         this.currentItem = ECLocalStorage.getItem(ECSaveKeys.CurrentItem) || "";
-        this.coin = ECLocalStorage.getItem(ECSaveKeys.Coin)? parseInt(ECLocalStorage.getItem(ECSaveKeys.Coin)) : 0;
+        this.coin = ECLocalStorage.getIntegerItem(ECSaveKeys.Coin,0);
         this.playRound = ECLocalStorage.getItem("PLAY_ROUND") ? parseInt(ECLocalStorage.getItem("PLAY_ROUND")) : 0;
         for(let key in this.master.flags)
         {
@@ -507,7 +470,7 @@ export default class ECGameController extends cc.Component
                 this.master.flags[key].status = ECLocalStorage.getItem(flag);
             }
         }
-        this.flashLightOn = this.hasFlashLight2();
+
         this.onUpdateFlashLight();
     }
 
@@ -829,5 +792,23 @@ export default class ECGameController extends cc.Component
             }
         }
         return total;
+    }
+
+    getComplateRate()
+    {
+        let total:number = 0;
+        let rate:number = 0;
+        for(let key in this.master.flags)
+        {
+            if(this.master.flags[key].requisite)
+            {
+                if(this.master.flags[key].status == ECFlagStatus.CompleteHidden || this.master.flags[key].status == ECFlagStatus.Complete)
+                {
+                    rate++;
+                }
+                total++;
+            }
+        }
+        return rate/total;
     }
 }

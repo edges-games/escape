@@ -42,10 +42,6 @@ export default class ECScene extends cc.Component
         ECGameController.instance.lightEventParent.setPosition(this.backgroundLayer.getPosition());
         ECGameController.instance.lightEventParent.destroyAllChildren();
         let lights:cc.Component[]=this.getComponentsInChildren("ECSliverLightEvent");
-        let sceneLight:cc.Component = this.getComponentInChildren("ECLightEvent");
-        if(sceneLight)
-        lights.push(sceneLight);
-
         for(let i=0;i<lights.length;i++)
         {
             lights[i].node.setParent(ECGameController.instance.lightEventParent);
@@ -71,10 +67,7 @@ export default class ECScene extends cc.Component
         );
 
         this.touchEvents = this.node.getComponentsInChildren("ECTouchEvent");
-        if(sceneLight)
-        this.touchEvents.push(sceneLight);
         this.lightEvents = ECGameController.instance.lightEventParent.getComponentsInChildren("ECTouchEvent");
-  
     }
 
     onDestroy()
@@ -121,73 +114,71 @@ export default class ECScene extends cc.Component
 
         let currentPos = this.backgroundLayer.getPosition();
     
-        let moveOffsetY = Math.abs(this.lightOffset.y) < 10;
-        let moveOffsetX = Math.abs(this.lightOffset.x) < 10;
-        if(ECGameController.instance.flashLight.Light.activeInHierarchy)
+        let moveOffsetY = ECGameController.instance.flashLight.node.active && Math.abs(this.lightOffset.y) < 10;
+        let moveOffsetX = ECGameController.instance.flashLight.node.active && Math.abs(this.lightOffset.x) < 10;
+        if(!moveOffsetY)
         {
-            if(!moveOffsetY)
+            this.lightOffset.y -= diff.y;
+            if(this.lightOffset.y > this.halfWinSize.height - 100)
             {
-                this.lightOffset.y -= diff.y;
-                if(this.lightOffset.y > this.halfWinSize.height - 100)
+                if(currentPos.y > 0)
                 {
-                    if(currentPos.y > 0)
-                    {
-                        this.lightOffset.y = 0;
-                        moveOffsetY = true;
-                    }
-                    else
-                    {
-                        this.lightOffset.y = this.halfWinSize.height - 100;
-                    }
+                    this.lightOffset.y = 0;
+                    moveOffsetY = true;
                 }
-        
-                if(this.lightOffset.y < -this.halfWinSize.height + 100)
+                else
                 {
-                    if(currentPos.y < 0)
-                    {    
-                        this.lightOffset.y = 0;
-                        moveOffsetY = true;
-                    }
-                    else
-                    {
-                        this.lightOffset.y = -this.halfWinSize.height + 100;
-                    }
+                    this.lightOffset.y = this.halfWinSize.height - 100;
                 }
-                ECGameController.instance.flashLight.node.setPosition(this.lightOffset);
             }
-            if(!moveOffsetX)
+    
+            if(this.lightOffset.y < -this.halfWinSize.height + 100)
             {
-                this.lightOffset.x -= diff.x; 
-                if(this.lightOffset.x - diff.x > this.halfWinSize.width - 100)
-                {
-                    if(currentPos.x > 0)
-                    {
-                        this.lightOffset.x = 0;
-                        moveOffsetX = true;
-                    }
-                    else
-                    {
-                        this.lightOffset.x = this.halfWinSize.width - 100;
-                    }
+                if(currentPos.y < 0)
+                {    
+                    this.lightOffset.y = 0;
+                    moveOffsetY = true;
                 }
-        
-                if(this.lightOffset.x - diff.x < -this.halfWinSize.width + 100)
+                else
                 {
-                    if(currentPos.x < 0)
-                    {    
-                        this.lightOffset.x = 0;
-                        moveOffsetX = true;
-                    }
-                    else
-                    {
-                        this.lightOffset.x = -this.halfWinSize.width + 100;
-                    }
+                    this.lightOffset.y = -this.halfWinSize.height + 100;
                 }
-                ECGameController.instance.flashLight.node.setPosition(this.lightOffset);
             }
+            ECGameController.instance.flashLight.node.setPosition(this.lightOffset);
         }
+        if(!moveOffsetX)
+        {
+            this.lightOffset.x -= diff.x; 
+            if(this.lightOffset.x - diff.x > this.halfWinSize.width - 100)
+            {
+                if(currentPos.x > 0)
+                {
+                    this.lightOffset.x = 0;
+                    moveOffsetX = true;
+                }
+                else
+                {
+                    this.lightOffset.x = this.halfWinSize.width - 100;
+                }
+            }
+    
+            if(this.lightOffset.x - diff.x < -this.halfWinSize.width + 100)
+            {
+                if(currentPos.x < 0)
+                {    
+                    this.lightOffset.x = 0;
+                    moveOffsetX = true;
+                }
+                else
+                {
+                    this.lightOffset.x = -this.halfWinSize.width + 100;
+                }
+            }
+            ECGameController.instance.flashLight.node.setPosition(this.lightOffset);
+        }
+
         let p = currentPos;
-        if(ECGameController.instance.flashLight.Light.activeInHierarchy)
+        if(ECGameController.instance.flashLight.node.active)
         {
             if(moveOffsetX)
             p.x += diff.x;
@@ -203,36 +194,33 @@ export default class ECScene extends cc.Component
         // Left
         if(p.x - (this.boundary.x) > 0)
         {
-            if(ECGameController.instance.flashLight.Light.activeInHierarchy && moveOffsetX)
+            if(moveOffsetX)
             this.lightOffset.x -= p.x - (this.boundary.x)
             p.x = this.boundary.x;
         }
         // Right
         if(p.x  <  this.boundary.width)
         { 
-            if(ECGameController.instance.flashLight.Light.activeInHierarchy && moveOffsetX)
+            if(moveOffsetX)
             this.lightOffset.x += this.boundary.width - p.x
             p.x = this.boundary.width;
         }
         // Bottom
         if(p.y  > (this.boundary.height))
         {
-            if(ECGameController.instance.flashLight.Light.activeInHierarchy && moveOffsetY)
+            if(moveOffsetY)
             this.lightOffset.y -= p.y - (this.boundary.height);
             p.y = this.boundary.height;
         }
         // Up
         if(p.y  <  this.boundary.y)
         {
-            if(ECGameController.instance.flashLight.Light.activeInHierarchy && moveOffsetY)
+            if(moveOffsetY)
             this.lightOffset.y += this.boundary.y - p.y;
             p.y = this.boundary.y;
         }
 
-        if(ECGameController.instance.flashLight.Light.activeInHierarchy)
-        {
-            ECGameController.instance.flashLight.node.setPosition(this.lightOffset);
-        }
+        ECGameController.instance.flashLight.node.setPosition(this.lightOffset);
         this.backgroundLayer.setPosition(p);
         ECGameController.instance.lightEventParent.setPosition(p);
     }
@@ -246,7 +234,7 @@ export default class ECScene extends cc.Component
         }
         
         // タップ範囲は懐中電灯の範囲にあるかどうかをチェックする
-        if(ECGameController.instance.flashLight.Light.active &&
+        if(ECGameController.instance.flashLight.node.active &&
             ECGameController.instance.flashLight.node.position.sub(
             ECGameController.instance.flashLight.node.parent.convertToNodeSpaceAR(touch.getLocation())
             ).mag() > 220)
@@ -265,7 +253,7 @@ export default class ECScene extends cc.Component
         {
             ECUtils.touchEvents(this.touchEvents,touch.getLocation());
         }
-        cc.loader.loadRes("particles/tap", function(error,prefab){
+        cc.resources.load("particles/tap", function(error,prefab){
             var tap:cc.Node = cc.instantiate(prefab);
             this.backgroundLayer.addChild(tap);
             tap.setPosition(this.backgroundLayer.convertToNodeSpaceAR(touch.getLocation()));

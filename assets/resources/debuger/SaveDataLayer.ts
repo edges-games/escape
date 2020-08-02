@@ -118,9 +118,9 @@ export default class SaveDataLayer extends cc.Component
                 ECGameController.instance.audio.stopBGM();
                 ECGameController.instance.lightEventParent.destroyAllChildren();
                 ECGameController.instance.globleEventParent.destroyAllChildren();
-                ECUIGroup.instance.Setting.node.active=false;
-                ECUIGroup.instance.Standup.node.active=false;
-                ECUIGroup.instance.HUD.show();
+                ECUIGroup.instance.hideSetting();
+                ECUIGroup.instance.hideStandup();
+                ECUIGroup.instance.showHUD();
                 this.node.parent.destroy();
             });
         }

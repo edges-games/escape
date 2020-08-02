@@ -115,9 +115,9 @@ export default class EffectEmitter extends cc.Component
                 let parent:cc.Node = data.Parent == "UI" ? this.uiEffectParent: this.gameEffectParent;
                 if(data.Actions)
                 {
-                    cc.loader.loadRes(data.Actions,cc.JsonAsset,function(error,jsonAsset)
+                    cc.resources.load(data.Actions,cc.JsonAsset,function(error,jsonAsset:cc.JsonAsset)
                     {
-                        cc.loader.loadRes(data.Prefab,cc.Prefab,function(error,prefab)
+                        cc.resources.load(data.Prefab,cc.Prefab,function(error,prefab:cc.Prefab)
                         {
                             self.createEffect(parent, data, prefab, jsonAsset.json);
                         });
@@ -125,7 +125,7 @@ export default class EffectEmitter extends cc.Component
                 }
                 else
                 {
-                    cc.loader.loadRes(data.Prefab,cc.Prefab,function(error,prefab)
+                    cc.resources.load(data.Prefab,cc.Prefab,function(error,prefab:cc.Prefab)
                     {
                         self.createEffect(parent, data, prefab, []);
                     });
