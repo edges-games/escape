@@ -35,6 +35,8 @@ Group 3   item
 
 Group 4   letter
 
+# 連絡先
+iseekyou@live.jp
 
 # フレームワークの使い方
 https://docs.google.com/document/d/1AJ9OmRnupvus5OaCehJC1Ce2FOXE4_rkkGzN0MRKGXU/edit?usp=sharing
