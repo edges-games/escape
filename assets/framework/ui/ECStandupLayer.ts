@@ -64,16 +64,10 @@ export default class ECStandupLayer extends ECBaseLayer
         .to(1,{opacity:255})
         .call(()=>
         {
-            cc.resources.load("opening",cc.Prefab,function(error,prefab)
-            {
-                let openning:cc.Node = cc.instantiate(prefab);
-                this.node.parent.addChild(openning);
-                this.node.active = false;
-                cc.tween(ECGameController.instance.mask).to(1,{opacity:0})
-                .delay(3)
-                .call(()=>{ECGameController.instance.mask.active=false;})
-                .start();
-            }.bind(this));
+            ECGameController.instance.changeScene(ECGameController.instance.properties.dictionary.start_scene,false,()=>{
+                ECGameController.instance.startGame();      
+                ECUIGroup.instance.hideStandup();
+                ECUIGroup.instance.showHUD();});
         }).start();
     }
 

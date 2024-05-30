@@ -10,7 +10,8 @@ export default class ECFlashLight extends cc.Component {
     @property(cc.Node) Light: cc.Node = null;
     @property(cc.Node) Dark: cc.Node = null;
     @property(cc.Node) Mask: cc.Node = null;
-
+    @property({type:cc.AudioClip}) switchSound:cc.AudioClip = null;
+    
     onInitialize()
     {
         cc.systemEvent.on(ECEvents.SwitchLight,this.onSwitchLight.bind(this));
@@ -31,20 +32,11 @@ export default class ECFlashLight extends cc.Component {
 
     onSwitchLight(on)
     {
-        let sceneLight:ECLightEvent = ECGameController.instance.getSceneLight();
-        if(!sceneLight)
-        {
+        if(this.switchSound)
+            {
+                ECGameController.instance.audio.playSound(this.switchSound);
+            }
             this.Light.active = on;
             this.Dark.active = !on;
-            
-        }
-        else
-        {
-            if(ECGameController.instance.getFlagStatus(sceneLight.flag) == ECFlagStatus.Start)
-            {
-                this.Light.active = on;
-                this.Dark.active = !on;
-            }
-        }
     }
 }

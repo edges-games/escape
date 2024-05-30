@@ -206,6 +206,7 @@ export default class ECItemBoxLayer extends ECBaseLayer
             {
                 this.combineCoroutine(newItem);
                 ECGameController.instance.audio.playSound(this.itemChanged);
+                cc.systemEvent.emit(ECEvents.GetFlashLight);
             }
             else
             {
